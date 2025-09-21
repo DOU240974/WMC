@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -23,9 +24,41 @@
                 <li><strong>Vereinsnachricht:</strong> Unser Verein feiert 10-jähriges Jubiläum!</li>
                 <li><strong>Sport-News:</strong> Österreich gewinnt das Freundschaftsspiel gegen Deutschland.</li>
                 <li><strong>Wetter:</strong> Am Wochenende sonnig, perfekte Bedingungen für Outdoor-Sport!</li>
+                <br>
+                <li><strong>Live-Info sportbild:</strong></li> <!-- Mit KI gespielt -->
+                <li><script>
+		fetch('https://api.rss2json.com/v1/api.json?rss_url=https://sportbild.bild.de/feed/sportbild-home.xml')
+			.then(response => response.json())
+			.then(data => {
+				const items = data.items;
+				let i = 0;
+				function updateTicker() {
+					document.getElementById('liveticker').textContent = items[i % items.length].title;
+					i++;
+				}
+				setInterval(updateTicker, 5000);
+				updateTicker();
+			});
+		</script>
+	<div id="liveticker"></div>
+	<script>
+	fetch('https://api.rss2json.com/v1/api.json?rss_url=https://sportbild.bild.de/rss/vw/sportbild/index.xml')
+	  .then(response => response.json())
+	  .then(data => {
+	    const items = data.items;
+	    let i = 0;
+	    function updateTicker() {
+	      document.getElementById('liveticker').textContent = items[i % items.length].title;
+	      i++;
+	    }
+	    setInterval(updateTicker, 5000);
+	    updateTicker();
+	  });
+	</script></li>
             </ul>
         </aside>
         <div class="main">
+    <a href="advance.html" class="ueber-mich-btn"><button>Alles über mich</button></a>
         <h2>Über mich</h2>
         <p>Einer meiner Hü´s ist es eine Seite in HTML & CSS zu schreiben.</p>
         <p>Jetzt seit ihr hier und liest das was ich geschrieben habe. </p>
@@ -89,18 +122,79 @@
                 </li>
             </ul>
         </section>
+    <!-- Umfrage: Wer wird WM-Sieger? -->
+    <section class="umfrage">
+        <h2>Umfrage: Wer wird WM-Sieger?</h2>
+        <form id="wm-umfrage" onsubmit="return false;">
+            <label for="wm-favorit">Dein Favorit:</label>
+            <input type="text" id="wm-favorit" name="wm-favorit" placeholder="Land oder Team">
+            <button type="button" onclick="voteWMSiegerText()">Abstimmen</button>
+        </form>
+        <div id="wm-result" style="margin-top:10px; font-weight:bold;"></div>
+        <a href="statistik.html" class="ergebnis-btn"><button>Ergebnisse anzeigen</button></a>
+    </section>
+
+     <!-- Statistik der Umfrage -->
+        <section class="umfrage-statistik">
+            <h2>Umfrage-Statistik</h2>
+            <div id="statistik"></div>
+        </section>
+
+        <script>
+        function voteWMSiegerText() {
+            const favorit = document.getElementById('wm-favorit').value.trim();
+            if (favorit) {
+                fetch('/vote', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ favorit })
+                })
+                .then(res => res.text())
+                .then(msg => {
+                    document.getElementById('wm-result').textContent = msg;
+                    loadStats();
+                })
+                .catch(() => document.getElementById('wm-result').textContent = 'Fehler beim Speichern!');
+            } else {
+                document.getElementById('wm-result').textContent = 'Bitte gib deinen Favoriten ein.';
+            }
+        }
+
+        function loadStats() {
+            fetch('/stats')
+              .then(res => res.json())
+              .then(data => {
+                let html = '<table border="1" style="width:100%; border-collapse:collapse;"><tr><th>Favorit</th><th>Stimmen</th></tr>';
+                data.forEach(row => {
+                  html += `<tr><td>${row.favorit}</td><td>${row.stimmen}</td></tr>`;
+                });
+                html += '</table>';
+                document.getElementById('statistik').innerHTML = html;
+              });
+        }
+
+        loadStats();
+        </script>
         </section>
         </div>
         <!-- Nächste Spiele Bereich -->
-        <aside class="next-games">
-            <h2>Nächste Spiele</h2>
-            <ul>
-                <li><strong>Fußball:</strong> 25.09.2025, 18:00 Uhr, Stadion Wien</li>
-                <li><strong>Basketball:</strong> 27.09.2025, 20:00 Uhr, Arena City</li>
-                <li><strong>Schwimmen:</strong> 30.09.2025, 10:00 Uhr, Schwimmhalle Nord</li>
-                <li><strong>Laufen:</strong> 03.10.2025, 09:00 Uhr, Stadtpark</li>
-                <li><strong>Radfahren:</strong> 05.10.2025, 14:00 Uhr, Donauinsel</li>
-            </ul>
+        <aside class="next-games"><!-- Mit KI gespielt -->
+                        <h2>Nächste Spiele spox</h2>
+                        <div id="spox-ticker">Lädt ...</div>
+                        <script>
+                        fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.feedburner.com/spox-sport/')
+                            .then(response => response.json())
+                            .then(data => {
+                                const items = data.items;
+                                let i = 0;
+                                function updateSpoxTicker() {
+                                    document.getElementById('spox-ticker').textContent = items[i % items.length].title;
+                                    i++;
+                                }
+                                setInterval(updateSpoxTicker, 5000);
+                                updateSpoxTicker();
+                            });
+                        </script>
         </aside>
     </div>
     <!-- Fußbereich der Seite -->
@@ -109,3 +203,4 @@
     </div>
 </body>
 </html>
+       

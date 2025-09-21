@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Live-Ticker Test</title>
+		<script>
+		fetch('https://api.rss2json.com/v1/api.json?rss_url=https://sportbild.bild.de/feed/sportbild-home.xml')
+			.then(response => response.json())
+			.then(data => {
+				const items = data.items;
+				let i = 0;
+				function updateTicker() {
+					document.getElementById('liveticker').textContent = items[i % items.length].title;
+					i++;
+				}
+				setInterval(updateTicker, 5000);
+				updateTicker();
+			});
+		</script>
+	<div id="liveticker"></div>
+	<script>
+	fetch('https://api.rss2json.com/v1/api.json?rss_url=https://sportbild.bild.de/rss/vw/sportbild/index.xml')
+	  .then(response => response.json())
+	  .then(data => {
+	    const items = data.items;
+	    let i = 0;
+	    function updateTicker() {
+	      document.getElementById('liveticker').textContent = items[i % items.length].title;
+	      i++;
+	    }
+	    setInterval(updateTicker, 5000);
+	    updateTicker();
+	  });
+	</script>
+	<script>
+	fetch('RSS-ODER-API-URL')
+	  .then(response => response.json())
+	  .then(data => {
+	    // Zeige z.B. data.items[i].title oder data.items[i].description
+	  });
+	</script>
+</body>
+</html>
