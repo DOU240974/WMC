@@ -1,0 +1,127 @@
+/* Bereich für Infos & Nachrichten (links) */
+.info-news {
+    background: #e3f2fd;
+    border: 2px solid #90caf9;
+    border-radius: 8px;
+    padding: 24px 18px;
+    min-width: 260px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.info-news h2 {
+    color: #1976d2;
+    margin-top: 0;
+    font-size: 1.3em;
+    margin-bottom: 16px;
+}
+.info-news ul {
+    list-style: none;
+    padding-left: 0;
+}
+.info-news li {
+    margin-bottom: 12px;
+    font-size: 1em;
+}
+/* Wrapper für Hauptinhalt und Nächste Spiele */
+.main-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Bereich für Nächste Spiele */
+.next-games {
+    background: #fffbe6;
+    border: 2px solid #ffe082;
+    border-radius: 8px;
+    padding: 24px 18px;
+    min-width: 260px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.next-games h2 {
+    color: #d4a200;
+    margin-top: 0;
+    font-size: 1.3em;
+    margin-bottom: 16px;
+}
+.next-games ul {
+    list-style: none;
+    padding-left: 0;
+}
+.next-games li {
+    margin-bottom: 12px;
+    font-size: 1em;
+}
+/* Einheitliche Größe für Super-Sportler-Bilder */
+.super-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    vertical-align: middle;
+    border-radius: 10%;
+    margin-right: 8px;
+}
+/* Einheitliche Größe für Sportbilder */
+.sport-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* Bild wird zugeschnitten, falls nötig */
+    vertical-align: middle;
+    border-radius: 2px;
+    margin-right: 8px;
+}
+/* Grundlegende Einstellungen für die Seite */
+body {
+    font-family: 'Courier New', Courier, monospace, sans-serif; /* Schriftart */
+    background-color: #f4f4f4; /* Hintergrundfarbe */
+    margin: 0; /* Kein Außenabstand */
+    padding: 0; /* Kein Innenabstand */
+}
+
+/* Kopfbereich (Header) */
+.header {
+    background-color: #016304; /* Grüne Hintergrundfarbe */
+    color: white; /* Weiße Schriftfarbe */
+    padding: 20px; /* Innenabstand */
+    text-align: center; /* Zentrierter Text */
+}
+
+/* Hauptbereich (Main) */
+.main {
+    margin: 40px auto; /* Abstand oben/unten und zentriert */
+    max-width: 1500px; /* Maximale Breite weiter erhöht */
+    background: white; /* Weißer Hintergrund */
+    padding: 30px; /* Innenabstand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Schatteneffekt */
+}
+
+/* Fußbereich (Footer) */
+.footer {
+    background-color: #333; /* Dunkler Hintergrund */
+    color: #fff; /* Weiße Schriftfarbe */
+    text-align: center; /* Zentrierter Text */
+    padding: 10px 0; /* Innenabstand oben/unten */
+    position: fixed; /* Fixiert am unteren Rand */
+    width: 100%; /* Volle Breite */
+    bottom: 0; /* Am unteren Rand */
+}
+
+/* Sport-Bereich */
+.sport {
+    background-color: #e3fdeb; /* Hellblauer Hintergrund */
+    border-left: 6px solid #000000; /* Blauer Streifen links */
+    padding: 20px; /* Innenabstand */
+    margin-top: 30px; /* Abstand nach oben */
+    border-radius: 6px; /* Abgerundete Ecken */
+}
+
+.sport h2 {
+    color: #02812d; /* Blaue Überschrift */
+}
+
+.sport ul {
+    padding-left: 20px; /* Abstand für Liste */
+}
