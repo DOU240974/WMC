@@ -1,0 +1,81 @@
+header {
+    background: #0055a5;
+    color: #fff;
+    padding: 24px 0;
+    text-align: center;
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+}
+header p {
+    margin: 8px 0 0 0;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+/* Theme Accent: Farbiges, kontrastreiches Layout mit auffälliger Typografie */
+body {
+    background: #222;
+    color: #f8f8f8;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+header, nav, main, aside, footer {
+    background: #2a2a5a;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+h2, h3 {
+    color: #ffcc00;
+    text-shadow: 1px 1px 2px #333;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+thead {
+    background: #ffcc00;
+    color: #222;
+}
+tbody tr:nth-child(even) {
+    background: #333366;
+}
+tbody tr:nth-child(odd) {
+    background: #2a2a5a;
+}
+td, th {
+    padding: 8px 12px;
+    border: 1px solid #ffcc00;
+}
+caption {
+    caption-side: top;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-bottom: 8px;
+}
+form, .umfrage {
+    background: #333366;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+button {
+    background: #ffcc00;
+    color: #222;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+button:hover {
+    background: #ffd700;
+}
+img {
+    max-width: 120px;
+    border-radius: 6px;
+    margin: 4px;
+}

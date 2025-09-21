@@ -1,3 +1,19 @@
+header {
+    background: #0055a5;
+    color: #fff;
+    padding: 24px 0;
+    text-align: center;
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+}
+header p {
+    margin: 8px 0 0 0;
+    font-size: 1.2em;
+    font-weight: 400;
+}
 /* Button für 'Alles über mich' */
 .ueber-mich-btn button {
     background-color: #1976d2;

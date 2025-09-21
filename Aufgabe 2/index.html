@@ -9,55 +9,23 @@
     <link rel="stylesheet" href="style.css"> <!-- Verknüpfung zur CSS-Datei -->
 </head>
 <body>
-    <!-- Kopfbereich der Seite -->
-    <div class="header">
-        <h1>Willkommen meine Sportsfreunde !</h1>
-    </div>
+    <header>
+        <h1>Willkommen meine Sportsfreunde!</h1>
+    </header>
     <!-- Hauptinhalt der Seite -->
-    <div class="main-wrapper">
-        <!-- Infos und Nachrichten Bereich -->
-        <aside class="info-news">
-            <h2>Infos &amp; Nachrichten</h2>
-            <ul>
-                <li><strong>Neue Trainingszeiten:</strong> Ab Oktober immer dienstags und donnerstags um 18 Uhr.</li>
-                <li><strong>Turnierankündigung:</strong> Das Herbstturnier findet am 12.10.2025 statt.</li>
-                <li><strong>Vereinsnachricht:</strong> Unser Verein feiert 10-jähriges Jubiläum!</li>
-                <li><strong>Sport-News:</strong> Österreich gewinnt das Freundschaftsspiel gegen Deutschland.</li>
-                <li><strong>Wetter:</strong> Am Wochenende sonnig, perfekte Bedingungen für Outdoor-Sport!</li>
-                <br>
-                <li><strong>Live-Info sportbild:</strong></li> <!-- Mit KI gespielt -->
-                <li><script>
-		fetch('https://api.rss2json.com/v1/api.json?rss_url=https://sportbild.bild.de/feed/sportbild-home.xml')
-			.then(response => response.json())
-			.then(data => {
-				const items = data.items;
-				let i = 0;
-				function updateTicker() {
-					document.getElementById('liveticker').textContent = items[i % items.length].title;
-					i++;
-				}
-				setInterval(updateTicker, 5000);
-				updateTicker();
-			});
-		</script>
-	<div id="liveticker"></div>
-	<script>
-	fetch('https://api.rss2json.com/v1/api.json?rss_url=https://sportbild.bild.de/rss/vw/sportbild/index.xml')
-	  .then(response => response.json())
-	  .then(data => {
-	    const items = data.items;
-	    let i = 0;
-	    function updateTicker() {
-	      document.getElementById('liveticker').textContent = items[i % items.length].title;
-	      i++;
-	    }
-	    setInterval(updateTicker, 5000);
-	    updateTicker();
-	  });
-	</script></li>
-            </ul>
-        </aside>
-        <div class="main">
+        <div class="main-wrapper">
+                <aside class="info-news">
+                        <h2>Infos & Nachrichten</h2>
+                        <ul>
+                                <li><strong>Neue Trainingszeiten:</strong> Ab Oktober immer dienstags und donnerstags um 18 Uhr.</li>
+                                <li><strong>Vereinsnachricht:</strong> Unser Verein feiert 10-jähriges Jubiläum!</li>
+                                <li><strong>Sport-News:</strong> Österreich gewinnt das Freundschaftsspiel gegen Deutschland.</li>
+                                <li><strong>Wetter:</strong> Am Wochenende sonnig, perfekte Bedingungen für Outdoor-Sport!</li>
+                                <li><strong>Live-Info sportbild:</strong></li>
+                        </ul>
+                        <div id="liveticker"></div>
+                </aside>
+    <div class="main">
     <a href="advance.html" class="ueber-mich-btn"><button>Alles über mich</button></a>
         <h2>Über mich</h2>
         <p>Einer meiner Hü´s ist es eine Seite in HTML & CSS zu schreiben.</p>
@@ -68,8 +36,10 @@
             <h2>Sport</h2>
             <p>Sport ist wichtig für Gesundheit und Wohlbefinden. Hier sind einige beliebte Sportarten:</p>
             <ul>
+                <!-- Hauptbereich: Sport, Tabelle, Umfrage, Statistik -->
                 <li>
                     <img src="fussball.jpg" alt="Fußball" class="sport-img">
+                        <!-- Button zu Über-mich-Seite -->
                     <a href="https://de.wikipedia.org/wiki/Fu%C3%9Fball" target="_blank">Fußball</a>
                 </li>
                 <li>
@@ -77,6 +47,7 @@
                     <a href="https://de.wikipedia.org/wiki/Basketball" target="_blank">Basketball</a>
                 </li>
                 <li>
+                            <!-- Liste der Sportarten mit Bildern und Links -->
                     <img src="schwimmen.jpg" alt="Schwimmen" class="sport-img">
                     <a href="https://de.wikipedia.org/wiki/Schwimmen" target="_blank">Schwimmen</a>
                 </li>
@@ -106,6 +77,7 @@
                 </li>
                 <li>
                     <img src="jordan.jpg" alt="Michael Jordan" class="super-img">
+                            <!-- Liste berühmter Sportler mit Bildern und Links -->
                     <a href="https://de.wikipedia.org/wiki/Michael_Jordan" target="_blank"><strong>Michael Jordan</strong></a> (Basketball)
                 </li>
                 <li>
@@ -137,70 +109,86 @@
      <!-- Statistik der Umfrage -->
         <section class="umfrage-statistik">
             <h2>Umfrage-Statistik</h2>
+                            <!-- Übersichtstabelle mit 10 Sportarten -->
             <div id="statistik"></div>
         </section>
 
-        <script>
-        function voteWMSiegerText() {
-            const favorit = document.getElementById('wm-favorit').value.trim();
-            if (favorit) {
-                fetch('/vote', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ favorit })
-                })
-                .then(res => res.text())
-                .then(msg => {
-                    document.getElementById('wm-result').textContent = msg;
-                    loadStats();
-                })
-                .catch(() => document.getElementById('wm-result').textContent = 'Fehler beim Speichern!');
-            } else {
-                document.getElementById('wm-result').textContent = 'Bitte gib deinen Favoriten ein.';
-            }
-        }
-
-        function loadStats() {
-            fetch('/stats')
-              .then(res => res.json())
-              .then(data => {
-                let html = '<table border="1" style="width:100%; border-collapse:collapse;"><tr><th>Favorit</th><th>Stimmen</th></tr>';
-                data.forEach(row => {
-                  html += `<tr><td>${row.favorit}</td><td>${row.stimmen}</td></tr>`;
-                });
-                html += '</table>';
-                document.getElementById('statistik').innerHTML = html;
-              });
-        }
-
-        loadStats();
-        </script>
         </section>
         </div>
-        <!-- Nächste Spiele Bereich -->
-        <aside class="next-games"><!-- Mit KI gespielt -->
-                        <h2>Nächste Spiele spox</h2>
-                        <div id="spox-ticker">Lädt ...</div>
-                        <script>
-                        fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.feedburner.com/spox-sport/')
-                            .then(response => response.json())
-                            .then(data => {
-                                const items = data.items;
-                                let i = 0;
-                                function updateSpoxTicker() {
-                                    document.getElementById('spox-ticker').textContent = items[i % items.length].title;
-                                    i++;
-                                }
-                                setInterval(updateSpoxTicker, 5000);
-                                updateSpoxTicker();
-                            });
-                        </script>
+        <aside class="next-games">
+            <h2>Nächste Spiele spox</h2>
+            <div id="spox-ticker">Lädt ...</div>
         </aside>
     </div>
-    <!-- Fußbereich der Seite -->
-    <div class="footer">
+    <footer>
         &copy; 2025 Meine Webseite
-    </div>
+        <button onclick="switchTheme('css/theme-light.css')">Light Theme</button>
+        <button onclick="switchTheme('css/theme-accent.css')">Accent Theme</button>
+    </footer>
+    <script>
+    // Live-Ticker sportbild
+    fetch('https://api.rss2json.com/v1/api.json?rss_url=https://sportbild.bild.de/feed/sportbild-home.xml')
+        .then(response => response.json())
+        .then(data => {
+            const items = data.items;
+            let i = 0;
+            function updateTicker() {
+                document.getElementById('liveticker').textContent = items[i % items.length].title;
+                i++;
+            }
+            setInterval(updateTicker, 5000);
+            updateTicker();
+        });
+
+    // Live-Ticker spox
+    fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.feedburner.com/spox-sport/')
+        .then(response => response.json())
+        .then(data => {
+            const items = data.items;
+            let i = 0;
+            function updateSpoxTicker() {
+                document.getElementById('spox-ticker').textContent = items[i % items.length].title;
+                i++;
+            }
+            setInterval(updateSpoxTicker, 5000);
+            updateSpoxTicker();
+        });
+
+    // Umfrage-Funktion
+    function voteWMSiegerText() {
+        const favorit = document.getElementById('wm-favorit').value.trim();
+        if (favorit) {
+            fetch('/vote', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ favorit })
+            })
+            .then(res => res.text())
+            .then(msg => {
+                document.getElementById('wm-result').textContent = msg;
+                loadStats();
+            })
+            .catch(() => document.getElementById('wm-result').textContent = 'Fehler beim Speichern!');
+        } else {
+            document.getElementById('wm-result').textContent = 'Bitte gib deinen Favoriten ein.';
+        }
+    }
+
+    function loadStats() {
+        fetch('/stats')
+          .then(res => res.json())
+          .then(data => {
+            let html = '<table border="1" style="width:100%; border-collapse:collapse;"><tr><th>Favorit</th><th>Stimmen</th></tr>';
+            data.forEach(row => {
+              html += `<tr><td>${row.favorit}</td><td>${row.stimmen}</td></tr>`;
+            });
+            html += '</table>';
+            document.getElementById('statistik').innerHTML = html;
+          });
+    }
+
+    loadStats();
+    </script>
 </body>
 </html>
        
