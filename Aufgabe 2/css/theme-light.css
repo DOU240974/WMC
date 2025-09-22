@@ -1,3 +1,8 @@
+body {
+    background: #f8f8f8;
+    color: #222;
+    font-family: Arial, Helvetica, sans-serif;
+}
 header {
     background: #0055a5;
     color: #fff;
@@ -14,21 +19,40 @@ header p {
     font-size: 1.2em;
     font-weight: 400;
 }
-/* Theme Light: Helles, klares Layout mit gut lesbarer Typografie */
-body {
-    background: #f8f8f8;
-    color: #222;
-    font-family: Arial, Helvetica, sans-serif;
+nav {
+    background: #e0eaff;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 16px;
 }
-header, nav, main, aside, footer {
+nav a {
+    color: #0055a5;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: bold;
+}
+.container {
+    display: flex;
+    gap: 24px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+main {
+    flex: 2;
+}
+aside {
+    flex: 1;
+    background: #eaf6ff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+section {
     background: #fff;
     border-radius: 8px;
-    margin: 10px 0;
+    margin-bottom: 16px;
     padding: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-h2, h3 {
-    color: #0055a5;
 }
 table {
     width: 100%;
@@ -54,11 +78,19 @@ caption {
     color: #0055a5;
     margin-bottom: 8px;
 }
-form, .umfrage {
+form {
     background: #eaf6ff;
     border-radius: 8px;
     padding: 16px;
     margin: 16px 0;
+}
+input, textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #bcd;
 }
 button {
     background: #0055a5;
@@ -72,8 +104,131 @@ button {
 button:hover {
     background: #003d7a;
 }
-img {
-    max-width: 120px;
-    border-radius: 6px;
-    margin: 4px;
+.sport-img, .super-img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 6px;
+    display: inline-block;
+}
+header {
+    background: linear-gradient(90deg, #1e90ff 60%, #ff9800 100%);
+    color: #fff;
+    padding: 24px 0;
+    text-align: center;
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 4px #1a2a1a44;
+}
+header p {
+    margin: 8px 0 0 0;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+nav {
+    background: #43a047;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+nav a:hover {
+    color: #ff9800;
+}
+.container {
+    display: flex;
+    gap: 24px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+main {
+    flex: 2;
+}
+aside {
+    flex: 1;
+    background: #c8e6c9;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+section {
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(30,144,255,0.08);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+thead {
+    background: #1e90ff;
+    color: #fff;
+}
+tbody tr:nth-child(even) {
+    background: #ffe0b2;
+}
+tbody tr:nth-child(odd) {
+    background: #e3f2fd;
+}
+td, th {
+    padding: 8px 12px;
+    border: 1px solid #43a047;
+}
+caption {
+    caption-side: top;
+    font-weight: bold;
+    color: #43a047;
+    margin-bottom: 8px;
+}
+form {
+    background: #e3f2fd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+input, textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #1e90ff;
+}
+button {
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+button:hover {
+    background: #1e90ff;
+}
+.sport-img, .super-img {
+    display: inline-block;
+    max-width: 100px;
+    max-height: 100px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 4px 12px 4px 0;
+    vertical-align: middle;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.12);
 }
