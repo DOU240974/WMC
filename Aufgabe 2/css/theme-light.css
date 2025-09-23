@@ -1,8 +1,10 @@
+/* Grundlayout und Farben für das helle Theme */
 body {
     background: #f8f8f8;
     color: #222;
     font-family: Arial, Helvetica, sans-serif;
 }
+/* Kopfbereich */
 header {
     background: #0055a5;
     color: #fff;
@@ -19,6 +21,7 @@ header p {
     font-size: 1.2em;
     font-weight: 400;
 }
+/* Navigation */
 nav {
     background: #e0eaff;
     padding: 10px;
@@ -31,15 +34,18 @@ nav a {
     margin: 0 8px;
     font-weight: bold;
 }
+/* Layout: Hauptbereich und Seitenleisten nebeneinander */
 .container {
     display: flex;
     gap: 24px;
     margin: 0 auto;
     max-width: 1200px;
 }
+/* Hauptinhalt */
 main {
     flex: 2;
 }
+/* Seitenleisten */
 aside {
     flex: 1;
     background: #eaf6ff;
@@ -47,6 +53,7 @@ aside {
     padding: 16px;
     margin-bottom: 16px;
 }
+/* Inhaltsabschnitte */
 section {
     background: #fff;
     border-radius: 8px;
@@ -54,36 +61,44 @@ section {
     padding: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+/* Tabellenlayout */
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 16px 0;
 }
+/* Tabellenkopf */
 thead {
     background: #e0eaff;
 }
+/* Wechselnde Zeilenfarben */
 tbody tr:nth-child(even) {
     background: #f0f6ff;
 }
+/* Wechselnde Zeilenfarben */
 tbody tr:nth-child(odd) {
     background: #fff;
 }
+/* Tabellenzellen */
 td, th {
     padding: 8px 12px;
     border: 1px solid #bcd;
 }
+/* Tabellenüberschrift */
 caption {
     caption-side: top;
     font-weight: bold;
     color: #0055a5;
     margin-bottom: 8px;
 }
+/* Formularbereich */
 form {
     background: #eaf6ff;
     border-radius: 8px;
     padding: 16px;
     margin: 16px 0;
 }
+/* Eingabefelder und Textbereiche */
 input, textarea {
     display: block;
     width: 100%;
@@ -92,6 +107,7 @@ input, textarea {
     border-radius: 4px;
     border: 1px solid #bcd;
 }
+/* Buttons */
 button {
     background: #0055a5;
     color: #fff;
@@ -101,9 +117,11 @@ button {
     cursor: pointer;
     font-weight: bold;
 }
+/* Hover-Effekt für Buttons */
 button:hover {
     background: #003d7a;
 }
+/* Einheitliche Bildgröße für Sportarten und Sportler */
 .sport-img, .super-img {
     width: 90px;
     height: 90px;

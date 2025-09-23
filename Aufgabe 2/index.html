@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>DOU's Sporteck</title>
-    <link rel="stylesheet" href="css/theme-light.css" id="theme-link">
-    <link rel="icon" href="balle-sport.png" type="image/png">
-    <script>
-      function switchTheme(theme) {
-        document.getElementById('theme-link').setAttribute('href', theme);
-      }
-    </script>
+        <!-- Zeichencodierung und Titel -->
+        <meta charset="UTF-8">
+        <title>DOU's Sporteck</title>
+        <!-- Standard-Theme -->
+        <link rel="stylesheet" href="css/theme-light.css" id="theme-link">
+        <!-- Favicon für die Seite -->
+        <link rel="icon" href="balle-sport.png" type="image/png">
 </head>
 <body>
+    <!-- Kopfbereich mit Titel und Text -->
     <header>
-        <h1>Sporteck</h1>
-        <p>Dein Einstieg in die Welt des Sports!</p>
-        <p>Außerdem eine HÜ in WMC!</p>
+        <h1>Sporteck</h1> 
+        <p>Dein Einstieg in die Welt des Sports!</p> 
+        <p>Außerdem eine HÜ in WMC!</p> 
     </header>
+    <!-- Navigation zu den Hauptbereichen -->
     <nav>
         <a href="#home">Startseite</a> |
         <a href="#angebote">Angebote</a> |
         <a href="#kontakt">Kontakt</a>
     </nav>
+    <!-- Haupt-Layout: Seitenleiste, Hauptinhalt, weitere Seitenleiste -->
     <div class="container">
+        <!-- Linke Seitenleiste mit aktuellen News -->
         <aside>
             <h2>News & Infos</h2>
             <ul>
@@ -33,7 +35,9 @@
                 <li>Wetter: Perfekte Bedingungen fürs Training!</li>
             </ul>
         </aside>
-        <main>
+    <!-- Hauptbereich mit allen Inhalten -->
+    <main>
+            <!-- Umfrage zur WM 2026 -->
             <section>
                 <h2>Wer wird die WM 2026 gewinnen?</h2>
                 <form>
@@ -42,10 +46,14 @@
                     <button type="submit">Abstimmen</button>
                 </form>
             </section>
+            <!-- Über mich -->
+            <section>
                 <h2>Über mich</h2>
                 <p>Hallo! Ich bin <a href="https://www.oefb.at/Profile/Spieler/819870?Fahd-Douihech" target="_blank" >Fahd </a> und Sport ist meine Leidenschaft. Ich spiele gerne Fußball, schwimme regelmäßig und interessiere mich für viele verschiedene Sportarten.</p>
                 <p>Diese Webseite ist Teil meiner Hausübung im Fach WMC und zeigt meine Begeisterung für Sport und Webentwicklung.</p>
             </section>
+            <!-- Liste der wichtigsten Sportarten -->
+            <section>
                 <h2>Sportarten</h2>
                 <ul>
                     <li><img src="fussball.jpg" alt="Fußball" class="sport-img"><a href="https://www.fifa.com/de" target="_blank" >Fußball</a></li>
@@ -55,6 +63,7 @@
                     <li><img src="radfahren.jpg" alt="Radfahren" class="sport-img"><a href="https://de.wikipedia.org/wiki/Fahrradfahren" target="_blank" >Radfahren</a></li>
                 </ul>
             </section>
+            <!-- Liste berühmter Sportler -->
             <section>
                 <h2>Super Sportler</h2>
                 <ul>
@@ -63,9 +72,10 @@
                     <li><img src="jordan.jpg" alt="Michael Jordan" class="super-img"><a href="https://de.wikipedia.org/wiki/Michael_Jordan" target="_blank" >Michael Jordan</a></li>
                     <li><img src="phelps.jpg" alt="Michael Phelps" class="super-img"><a href="https://de.wikipedia.org/wiki/Michael_Phelps" target="_blank" >Michael Phelps</a></li>
                     <li><img src="bolt.jpg" alt="Usain Bolt" class="super-img"><a href="https://de.wikipedia.org/wiki/Usain_Bolt" target="_blank" >Usain Bolt</a></li>
-                    <li><img src="armstrong.jpg" alt="Lance Armstrong" class="super-img" width="90" height="90"><a href="https://de.wikipedia.org/wiki/Lance_Armstrong" target="_blank" >Lance Armstrong</a></li>
+                    <li><img src="armstrong.jpg" alt="Lance Armstrong" class="super-img"><a href="https://de.wikipedia.org/wiki/Lance_Armstrong" target="_blank" >Lance Armstrong</a></li>
                 </ul>
             </section>
+            <!-- Übersichtstabelle der Sportarten -->
             <section>
                 <h2>Sportarten Übersicht</h2>
                 <table>
@@ -87,21 +97,21 @@
                     </tbody>
                 </table>
             </section>
+            <!-- Kontaktformular für Nachrichten -->
             <section>
                 <h2>Kontaktformular</h2>
                 <form>
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required placeholder="Name">
-                        <label for="email">E-Mail:</label>
-                        <input type="email" id="email" name="email" required placeholder="E-Mail">
+                    <label for="email">E-Mail:</label>
+                    <input type="email" id="email" name="email" required placeholder="E-Mail">
                     <label for="nachricht">Nachricht:</label>
                     <textarea id="nachricht" name="nachricht" required placeholder="Text"></textarea>
                     <button type="submit">Absenden</button>
-                    </form>
-
                 </form>
             </section>
-        </main>
+    </main>
+        <!-- Rechte Seitenleiste mit Spielterminen -->
         <aside>
             <h2>Nächste Spiele</h2>
             <ul>
@@ -111,11 +121,13 @@
             </ul>
         </aside>
     </div>
+    <!-- Fußbereich mit Copyright und Theme-Wechsel -->
     <footer>
         <p>&copy; 2025 Sportportal. Alle Rechte vorbehalten.</p>
-        <button onclick="switchTheme('css/theme-light.css')">Light Theme</button>
-        <button onclick="switchTheme('css/theme-accent.css')">Accent Theme</button>
-        <button onclick="switchTheme('css/theme-dark.css')">Dark Theme</button>
+        <!-- Buttons zum Wechseln des Designs -->
+    <button onclick="document.getElementById('theme-link').setAttribute('href', 'css/theme-light.css')">Light Theme</button>
+    <button onclick="document.getElementById('theme-link').setAttribute('href', 'css/theme-accent.css')">Accent Theme</button>
+    <button onclick="document.getElementById('theme-link').setAttribute('href', 'css/theme-dark.css')">Dark Theme</button>
     </footer>
 </body>
 </html>
