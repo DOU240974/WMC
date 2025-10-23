@@ -1,0 +1,253 @@
+body {
+/* Grundlayout und Farben für das Akzent-Theme (Orange) */
+    background: #fff8f0;
+    color: #222;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+header {
+/* Kopfbereich */
+    background: #ff9800;
+    color: #fff;
+    padding: 24px 0;
+    text-align: center;
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+}
+header p {
+    margin: 8px 0 0 0;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+nav {
+/* Navigation */
+    background: #ffe0b2;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+nav a {
+    color: #ff9800;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: bold;
+}
+.container {
+    /* Layout: Hauptbereich und Seitenleisten nebeneinander */
+    display: flex;
+    gap: 24px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+main {
+/* Hauptinhalt */
+    flex: 2;
+}
+aside {
+/* Seitenleisten */
+    flex: 1;
+    background: #fff3e0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+section {
+/* Inhaltsabschnitte */
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+table {
+/* Tabellenlayout */
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+thead {
+/* Tabellenkopf */
+    background: #ff9800;
+    color: #fff;
+}
+tbody tr:nth-child(even) {
+/* Wechselnde Zeilenfarben */
+    background: #ffe0b2;
+}
+tbody tr:nth-child(odd) {
+/* Wechselnde Zeilenfarben */
+    background: #fff;
+}
+td, th {
+/* Tabellenzellen */
+    padding: 8px 12px;
+    border: 1px solid #ff9800;
+}
+caption {
+/* Tabellenüberschrift */
+    caption-side: top;
+    font-weight: bold;
+    color: #ff9800;
+    margin-bottom: 8px;
+}
+form {
+/* Formularbereich */
+    background: #fff3e0;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+input, textarea {
+/* Eingabefelder und Textbereiche */
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ff9800;
+}
+button {
+/* Buttons */
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+button:hover {
+/* Hover-Effekt für Buttons */
+    background: #e65100;
+}
+.sport-img, .super-img {
+    /* Einheitliche Bildgröße für Sportarten und Sportler */
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 6px;
+    display: inline-block;
+}
+header {
+    background: linear-gradient(90deg, #43a047 60%, #ff9800 100%);
+    color: #fff;
+    padding: 24px 0;
+    text-align: center;
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 4px #21212144;
+}
+header p {
+    margin: 8px 0 0 0;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+nav {
+    background: #1e90ff;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+nav a:hover {
+    color: #ff9800;
+}
+.container {
+    display: flex;
+    gap: 24px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+main {
+    flex: 2;
+}
+aside {
+    flex: 1;
+    background: #388e3c;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+section {
+    background: #263238;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.12);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+thead {
+    background: #ff9800;
+    color: #fff;
+}
+tbody tr:nth-child(even) {
+    background: #1e90ff;
+}
+tbody tr:nth-child(odd) {
+    background: #388e3c;
+}
+td, th {
+    padding: 8px 12px;
+    border: 1px solid #ff9800;
+}
+caption {
+    caption-side: top;
+    font-weight: bold;
+    color: #ff9800;
+    margin-bottom: 8px;
+}
+form {
+    background: #212121;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+input, textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ff9800;
+}
+button {
+    background: #43a047;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+button:hover {
+    background: #ff9800;
+}
+.sport-img, .super-img {
+    display: inline-block;
+    max-width: 100px;
+    max-height: 100px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 4px 12px 4px 0;
+    vertical-align: middle;
+    box-shadow: 0 2px 8px rgba(30,144,255,0.12);
+}

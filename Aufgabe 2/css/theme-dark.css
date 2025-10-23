@@ -1,0 +1,169 @@
+body {
+    background: #121212;
+    color: #f8f8f8;
+    /* Grundlayout und Farben für das dunkle Theme */
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+header {
+    background: #23272f;
+    color: #ffb300;
+    /* Kopfbereich */
+    padding: 32px 0 24px 0;
+    text-align: center;
+    box-shadow: 0 2px 8px #000a;
+    border-bottom: 2px solid #ffb300;
+}
+h1 {
+    margin: 0;
+    font-size: 2.7em;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+header p {
+    margin: 10px 0 0 0;
+    font-size: 1.25em;
+    font-weight: 400;
+}
+nav {
+    background: #181a20;
+    padding: 14px;
+    /* Navigation */
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+nav a {
+    color: #ffb300;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.2s;
+}
+nav a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+.container {
+    display: flex;
+    gap: 32px;
+    margin: 0 auto;
+    /* Layout: Hauptbereich und Seitenleisten nebeneinander */
+    max-width: 1200px;
+}
+main {
+    flex: 2;
+    /* Hauptinhalt */
+}
+aside {
+    flex: 1;
+    background: #181a20;
+    /* Seitenleisten */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: #f8f8f8;
+    box-shadow: 0 2px 8px #0006;
+}
+section {
+    background: #23272f;
+    border-radius: 10px;
+    /* Inhaltsabschnitte */
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 8px #0008;
+    color: #f8f8f8;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    /* Tabellenlayout */
+    background: #181a20;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px #0006;
+}
+thead {
+    background: #23272f;
+    color: #ffb300;
+    /* Tabellenkopf */
+    font-size: 1.1em;
+}
+tbody tr:nth-child(even) {
+    background: #23272f;
+    /* Wechselnde Zeilenfarben */
+}
+tbody tr:nth-child(odd) {
+    background: #181a20;
+}
+td, th {
+    padding: 12px 16px;
+    border: 1px solid #333;
+    /* Tabellenzellen */
+}
+caption {
+    caption-side: top;
+    font-weight: bold;
+    /* Tabellenüberschrift */
+    color: #ffb300;
+    margin-bottom: 10px;
+    font-size: 1.15em;
+}
+form {
+    background: #181a20;
+    border-radius: 10px;
+    /* Formularbereich */
+    padding: 20px;
+    margin: 20px 0;
+    color: #f8f8f8;
+    box-shadow: 0 2px 8px #0006;
+}
+input, textarea {
+    display: block;
+    width: 100%;
+    /* Eingabefelder und Textbereiche */
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ffb300;
+    background: #23272f;
+    color: #f8f8f8;
+    font-size: 1em;
+}
+input::placeholder, textarea::placeholder {
+    color: #ffb300;
+    opacity: 0.7;
+}
+button {
+    background: #ffb300;
+    color: #23272f;
+    /* Buttons */
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 0 2px 8px #0004;
+    transition: background 0.2s, color 0.2s;
+}
+button:hover {
+    /* Hover-Effekt für Buttons */
+    background: #fff;
+    color: #23272f;
+}
+.sport-img, .super-img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 6px;
+    border: 2px solid #ffb300;
+    background: #23272f;
+    box-shadow: 0 2px 8px #0006;
+    display: inline-block;
+    /* Einheitliche Bildgröße für Sportarten und Sportler */
+}
