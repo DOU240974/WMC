@@ -22,11 +22,13 @@ const students = [
 
 //Task 1 – filter:** Find all students who passed (grade ≤ 4). Store the result in `passed`.
 const passed = students.filter(student => student.grade <= 4);
+console.log(passed);
 //filter lässt nur Elemente durch, die eine Bedingung erfüllen.
 
 
 //Task 2 – map:** Create an array of strings in the format `"Anna (17)"` from the original array. Store it in `labels`.
 const labels = students.map(student => `${student.name} (${student.age})`);
+console.log(labels);
 //map verändert jedes Element.
 
 
