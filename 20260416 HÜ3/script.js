@@ -1,4 +1,4 @@
-import persons from "./person.json" with { type: "json" };
+import persons from "./persons.json" with { type: "json" };
 console.log(persons);
 
 // "id": 6,

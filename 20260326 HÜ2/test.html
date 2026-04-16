@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise Brief Beispiel</title>
+</head>
+<body>
+
+    <h1>📬 Brief-Versand Simulation</h1>
+    <button onclick="starteProzess()">Brief versenden</button>
+
+    <p id="output">Status: Warten...</p>
+
+    <script src="brief.js"></script>
+
+    <script>
+        function starteProzess() {
+            const output = document.getElementById("output");
+            output.textContent = "Hole Brief...";
+
+            holeBrief("Hallo Welt")
+                .then((brief) => {
+                    output.textContent = "Stemple Brief...";
+                    return stempelBrief(brief);
+                })
+                .then((brief) => {
+                    output.textContent = "Versende Brief...";
+                    return versendeBrief(brief);
+                })
+                .then((fertigerBrief) => {
+                    output.textContent = fertigerBrief;
+                })
+                .catch((err) => {
+                    output.textContent = "Fehler!";
+                    console.error(err);
+                });
+        }
+    </script>
+
+</body>
+</html>
