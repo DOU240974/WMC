@@ -26,7 +26,7 @@ function versendeBrief(brief) {
 }
 
 // Promise-Chaining
-holeBrief("Guck mal Brief ist da!")
+holeBrief("Hallo Welt")
     .then((brief) => stempelBrief(brief))
     .then((brief) => versendeBrief(brief))
     .then((fertigerBrief) => {
