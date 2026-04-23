@@ -1,0 +1,45 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Todo App</title>
+
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="">
+
+  <script type="module" defer src="app.js"></script>
+
+</head>
+
+<body>
+
+  <h1>Todo List</h1>
+
+  <input id="todo-input" type="text" placeholder="What needs to be done">
+  <select id="priority">
+    <option value="0">select Priority</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button id="todo-add" type="button">Add</button>
+
+  <h2>Pending Tasks</h2>
+  <ul id="todo-list">
+    <!-- dynamic content goes here -->
+  </ul>
+
+  <h2>Done</h2>
+  <ul id="todo-list-done">
+    <!-- dynamic content goes here -->
+  </ul>
+
+
+</body>
+
+</html>
