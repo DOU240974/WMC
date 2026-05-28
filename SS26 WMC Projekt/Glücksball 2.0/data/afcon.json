@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "tournament": "Africa Cup of Nations (AFCON) 2025",
+    "host": "Marokko",
+    "status": "abgeschlossen",
+    "sportingFinalWinner": "Senegal",
+    "officialWinner": "Marokko",
+    "dates": {
+      "from": "2025-12-21",
+      "to": "2026-01-18"
+    },
+    "dataAsOf": "2025-12-31",
+    "sourceNote": "Group standings + KO schedule + goalscorers compiled from public tournament pages."
+  },
+  "flags": {
+    "base": "https://flagcdn.com/w40/",
+    "ext": ".png"
+  },
+  "teams": [
+    { "name": "Marokko", "iso2": "ma", "flag": "https://flagcdn.com/w40/ma.png" },
+    { "name": "Mali", "iso2": "ml", "flag": "https://flagcdn.com/w40/ml.png" },
+    { "name": "Komoren", "iso2": "km", "flag": "https://flagcdn.com/w40/km.png" },
+    { "name": "Sambia", "iso2": "zm", "flag": "https://flagcdn.com/w40/zm.png" },
+    { "name": "Ägypten", "iso2": "eg", "flag": "https://flagcdn.com/w40/eg.png" },
+    { "name": "Südafrika", "iso2": "za", "flag": "https://flagcdn.com/w40/za.png" },
+    { "name": "Angola", "iso2": "ao", "flag": "https://flagcdn.com/w40/ao.png" },
+    { "name": "Simbabwe", "iso2": "zw", "flag": "https://flagcdn.com/w40/zw.png" },
+    { "name": "Nigeria", "iso2": "ng", "flag": "https://flagcdn.com/w40/ng.png" },
+    { "name": "Tunesien", "iso2": "tn", "flag": "https://flagcdn.com/w40/tn.png" },
+    { "name": "Tansania", "iso2": "tz", "flag": "https://flagcdn.com/w40/tz.png" },
+    { "name": "Uganda", "iso2": "ug", "flag": "https://flagcdn.com/w40/ug.png" },
+    { "name": "Senegal", "iso2": "sn", "flag": "https://flagcdn.com/w40/sn.png" },
+    { "name": "DR Kongo", "iso2": "cd", "flag": "https://flagcdn.com/w40/cd.png" },
+    { "name": "Benin", "iso2": "bj", "flag": "https://flagcdn.com/w40/bj.png" },
+    { "name": "Botsuana", "iso2": "bw", "flag": "https://flagcdn.com/w40/bw.png" },
+    { "name": "Algerien", "iso2": "dz", "flag": "https://flagcdn.com/w40/dz.png" },
+    { "name": "Burkina Faso", "iso2": "bf", "flag": "https://flagcdn.com/w40/bf.png" },
+    { "name": "Sudan", "iso2": "sd", "flag": "https://flagcdn.com/w40/sd.png" },
+    { "name": "Äquatorialguinea", "iso2": "gq", "flag": "https://flagcdn.com/w40/gq.png" },
+    { "name": "Elfenbeinküste", "iso2": "ci", "flag": "https://flagcdn.com/w40/ci.png" },
+    { "name": "Kamerun", "iso2": "cm", "flag": "https://flagcdn.com/w40/cm.png" },
+    { "name": "Mosambik", "iso2": "mz", "flag": "https://flagcdn.com/w40/mz.png" },
+    { "name": "Gabon", "iso2": "ga", "flag": "https://flagcdn.com/w40/ga.png" }
+  ],
+  "groups": [
+    {
+      "name": "Group A",
+      "table": [
+        { "team": "Marokko", "p": 3, "w": 2, "d": 1, "l": 0, "gf": 6, "ga": 1, "gd": 5, "pts": 7 },
+        { "team": "Mali", "p": 3, "w": 0, "d": 3, "l": 0, "gf": 2, "ga": 2, "gd": 0, "pts": 3 },
+        { "team": "Komoren", "p": 3, "w": 0, "d": 2, "l": 1, "gf": 0, "ga": 2, "gd": -2, "pts": 2 },
+        { "team": "Sambia", "p": 3, "w": 0, "d": 2, "l": 1, "gf": 1, "ga": 4, "gd": -3, "pts": 2 }
+      ]
+    },
+    {
+      "name": "Group B",
+      "table": [
+        { "team": "Ägypten", "p": 3, "w": 2, "d": 1, "l": 0, "gf": 3, "ga": 1, "gd": 2, "pts": 7 },
+        { "team": "Südafrika", "p": 3, "w": 2, "d": 0, "l": 1, "gf": 5, "ga": 4, "gd": 1, "pts": 6 },
+        { "team": "Angola", "p": 3, "w": 0, "d": 2, "l": 1, "gf": 2, "ga": 3, "gd": -1, "pts": 2 },
+        { "team": "Simbabwe", "p": 3, "w": 0, "d": 1, "l": 2, "gf": 4, "ga": 6, "gd": -2, "pts": 1 }
+      ]
+    },
+    {
+      "name": "Group C",
+      "table": [
+        { "team": "Nigeria", "p": 3, "w": 3, "d": 0, "l": 0, "gf": 8, "ga": 4, "gd": 4, "pts": 9 },
+        { "team": "Tunesien", "p": 3, "w": 1, "d": 1, "l": 1, "gf": 6, "ga": 5, "gd": 1, "pts": 4 },
+        { "team": "Tansania", "p": 3, "w": 0, "d": 2, "l": 1, "gf": 3, "ga": 4, "gd": -1, "pts": 2 },
+        { "team": "Uganda", "p": 3, "w": 0, "d": 1, "l": 2, "gf": 3, "ga": 7, "gd": -4, "pts": 1 }
+      ]
+    },
+    {
+      "name": "Group D",
+      "table": [
+        { "team": "Senegal", "p": 3, "w": 2, "d": 1, "l": 0, "gf": 7, "ga": 1, "gd": 6, "pts": 7 },
+        { "team": "DR Kongo", "p": 3, "w": 2, "d": 1, "l": 0, "gf": 5, "ga": 1, "gd": 4, "pts": 7 },
+        { "team": "Benin", "p": 3, "w": 1, "d": 0, "l": 2, "gf": 1, "ga": 4, "gd": -3, "pts": 3 },
+        { "team": "Botsuana", "p": 3, "w": 0, "d": 0, "l": 3, "gf": 0, "ga": 7, "gd": -7, "pts": 0 }
+      ]
+    },
+    {
+      "name": "Group E",
+      "table": [
+        { "team": "Algerien", "p": 3, "w": 3, "d": 0, "l": 0, "gf": 7, "ga": 1, "gd": 6, "pts": 9 },
+        { "team": "Burkina Faso", "p": 3, "w": 2, "d": 0, "l": 1, "gf": 4, "ga": 2, "gd": 2, "pts": 6 },
+        { "team": "Sudan", "p": 3, "w": 1, "d": 0, "l": 2, "gf": 1, "ga": 5, "gd": -4, "pts": 3 },
+        { "team": "Äquatorialguinea", "p": 3, "w": 0, "d": 0, "l": 3, "gf": 2, "ga": 6, "gd": -4, "pts": 0 }
+      ]
+    },
+    {
+      "name": "Group F",
+      "table": [
+        { "team": "Elfenbeinküste", "p": 3, "w": 2, "d": 1, "l": 0, "gf": 5, "ga": 3, "gd": 2, "pts": 7 },
+        { "team": "Kamerun", "p": 3, "w": 2, "d": 1, "l": 0, "gf": 4, "ga": 2, "gd": 2, "pts": 7 },
+        { "team": "Mosambik", "p": 3, "w": 1, "d": 0, "l": 2, "gf": 4, "ga": 5, "gd": -1, "pts": 3 },
+        { "team": "Gabon", "p": 3, "w": 0, "d": 0, "l": 3, "gf": 4, "ga": 7, "gd": -3, "pts": 0 }
+      ]
+    }
+  ],
+  "knockout": [
+    {
+      "round": "Round of 16",
+      "matches": [
+        { "id": "R1", "date": "2026-01-03", "time": "17:00", "home": { "name": "Senegal", "iso2": "sn" }, "away": { "name": "Sudan", "iso2": "sd" }, "venue": { "stadium": "Tangier Grand Stadium", "city": "Tangier" }, "score": null },
+        { "id": "R2", "date": "2026-01-03", "time": "20:00", "home": { "name": "Mali", "iso2": "ml" }, "away": { "name": "Tunesien", "iso2": "tn" }, "venue": { "stadium": "Mohammed V Stadium", "city": "Casablanca" }, "score": null },
+        { "id": "R3", "date": "2026-01-04", "time": "17:00", "home": { "name": "Marokko", "iso2": "ma" }, "away": { "name": "Tansania", "iso2": "tz" }, "venue": { "stadium": "Prince Moulay Abdellah Stadium", "city": "Rabat" }, "score": null },
+        { "id": "R4", "date": "2026-01-04", "time": "20:00", "home": { "name": "Südafrika", "iso2": "za" }, "away": { "name": "Kamerun", "iso2": "cm" }, "venue": { "stadium": "Al Medina Stadium", "city": "Rabat" }, "score": null },
+        { "id": "R5", "date": "2026-01-05", "time": "17:00", "home": { "name": "Ägypten", "iso2": "eg" }, "away": { "name": "Benin", "iso2": "bj" }, "venue": { "stadium": "Adrar Stadium", "city": "Agadir" }, "score": null },
+        { "id": "R6", "date": "2026-01-05", "time": "20:00", "home": { "name": "Nigeria", "iso2": "ng" }, "away": { "name": "Mosambik", "iso2": "mz" }, "venue": { "stadium": "Fez Stadium", "city": "Fez" }, "score": null },
+        { "id": "R7", "date": "2026-01-06", "time": "17:00", "home": { "name": "Algerien", "iso2": "dz" }, "away": { "name": "DR Kongo", "iso2": "cd" }, "venue": { "stadium": "Moulay Hassan Stadium", "city": "Rabat" }, "score": null },
+        { "id": "R8", "date": "2026-01-06", "time": "20:00", "home": { "name": "Elfenbeinküste", "iso2": "ci" }, "away": { "name": "Burkina Faso", "iso2": "bf" }, "venue": { "stadium": "Marrakesh Stadium", "city": "Marrakesh" }, "score": null }
+      ]
+    },
+    {
+      "round": "Quarter-finals",
+      "matches": [
+        { "id": "QF1", "date": "2026-01-09", "time": "17:00", "home": { "name": "Mali", "iso2": "ml" }, "away": { "name": "Senegal", "iso2": "sn" }, "venue": { "stadium": "Tangier Grand Stadium", "city": "Tangier" }, "score": null },
+        { "id": "QF2", "date": "2026-01-09", "time": "20:00", "home": { "name": "Kamerun", "iso2": "cm" }, "away": { "name": "Marokko", "iso2": "ma" }, "venue": { "stadium": "Prince Moulay Abdellah Stadium", "city": "Rabat" }, "score": null },
+        { "id": "QF3", "date": "2026-01-10", "time": "17:00", "home": { "name": "Algerien", "iso2": "dz" }, "away": { "name": "Nigeria", "iso2": "ng" }, "venue": { "stadium": "Marrakesh Stadium", "city": "Marrakesh" }, "score": null },
+        { "id": "QF4", "date": "2026-01-10", "time": "20:00", "home": { "name": "Ägypten", "iso2": "eg" }, "away": { "name": "Elfenbeinküste", "iso2": "ci" }, "venue": { "stadium": "Adrar Stadium", "city": "Agadir" }, "score": null }
+      ]
+    },
+    {
+      "round": "Semi-finals",
+      "matches": [
+        { "id": "SF1", "date": "2026-01-14", "time": "18:00", "home": { "label": "Winner QF1" }, "away": { "label": "Winner QF4" }, "venue": { "stadium": "Tangier Grand Stadium", "city": "Tangier" }, "score": null },
+        { "id": "SF2", "date": "2026-01-14", "time": "21:00", "home": { "label": "Winner QF2" }, "away": { "label": "Winner QF3" }, "venue": { "stadium": "Prince Moulay Abdellah Stadium", "city": "Rabat" }, "score": null }
+      ]
+    },
+    {
+      "round": "Third place play-off",
+      "matches": [
+        { "id": "3P", "date": "2026-01-17", "time": "17:00", "home": { "label": "Loser SF1" }, "away": { "label": "Loser SF2" }, "venue": { "stadium": "Mohammed V Stadium", "city": "Casablanca" }, "score": null }
+      ]
+    },
+    {
+      "round": "Final",
+      "matches": [
+        {
+          "id": "F",
+          "date": "2026-01-18",
+          "time": "20:00",
+          "home": { "name": "Senegal", "iso2": "sn" },
+          "away": { "name": "Marokko", "iso2": "ma" },
+          "venue": { "stadium": "Prince Moulay Abdellah Stadium", "city": "Rabat" },
+          "score": { "home": 2, "away": 1 },
+          "note": "Senegal gewann sportlich auf dem Platz, Marokko wurde nachträglich als Sieger gekürt."
+        }
+      ]
+    }
+  ],
+  "topScorers": [
+    { "player": "Brahim Díaz", "team": "Marokko", "teamIso2": "ma", "goals": 5 },
+    { "player": "Victor Osimhen", "team": "Nigeria", "teamIso2": "ng", "goals": 4 },
+    { "player": "Mohamed Salah", "team": "Ägypten", "teamIso2": "eg", "goals": 4 },
+    { "player": "Ayoub El Kaabi", "team": "Marokko", "teamIso2": "ma", "goals": 3 },
+    { "player": "Lassine Sinayoko", "team": "Mali", "teamIso2": "ml", "goals": 3 }
+  ]
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Glücksball Ranking</title>
+  <link rel="icon" href="image/Logo.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css?v=4">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<header class="header">
+  <h1>GlücksBall 2.0</h1>
+  <p><strong>Wir wetten nicht nur um Geld, sondern um Ruhm, Ehre und Schadenfreude!</strong></p>
+
+  <nav class="nav">
+      <a href="index.html">Start</a>
+      <a href="fussballmeisterschaften.html">Meisterschaften</a>
+      <a href="tipps.html">Ehrentipps</a>
+      <a href="spasstipp.html">Spaßtipps</a>
+      <a href="ranking.html" class="active">Ranking</a>
+      <a href="fussball-news.html">News</a>
+      <a href="forum.html">Forum</a>
+      <a href="regeln.html">Regeln</a>
+
+      
+    <div class="auth-area" id="authArea">
+      <div class="auth-status" id="authStatus">
+        <span class="led" id="loginLed" aria-label="Login Status"></span>
+        <span class="auth-name" id="navUsername"></span>
+      </div>
+
+      <div id="authGuest">
+        <button id="authToggle" class="btn btn-ghost" type="button">Login</button>
+
+        <div class="auth-box" id="authBox">
+          <form id="loginForm">
+            <h3>Login</h3>
+            <input type="text" id="loginName" placeholder="Benutzername" required>
+            <input type="password" id="loginPass" placeholder="Passwort" required>
+            <button class="btn" type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="authUser" style="display:none;">
+        <button id="logoutBtn" class="btn btn-ghost" type="button">Logout</button>
+      </div>
+    </div>
+
+    <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
+  </nav>
+</header>
+
+<main class="page">
+  <h1>Ehren-Ranking</h1>
+  <p class="muted">Nur Ehrentipps werden gewertet. Spaßtipps zählen hier nicht mit.</p>
+
+  <div class="card" style="overflow:auto;">
+    <table id="rankingTable" class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>User</th>
+          <th>Punkte</th>
+          <th>Tipps</th>
+          <th>Trefferquote</th>
+        </tr>
+      </thead>
+      <tbody id="rankingBody">
+        <tr><td colspan="5">Lade…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-title">WM-Favoriten</h2>
+  <p class="muted">Übersicht über Weltmeister-Tipp, Top-Torjäger und geschätzte Gesamt-Tore.</p>
+
+  <div class="card" style="overflow:auto;">
+    <table id="favoriteRankingTable" class="table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>WM-Favorit</th>
+          <th>Top-Torjäger</th>
+          <th>Gesamt-Tore</th>
+          <th>Bonus</th>
+        </tr>
+      </thead>
+      <tbody id="favoriteRankingBody">
+        <tr><td colspan="5">Lade…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<script src="js/app.js?v=1"></script>
+<script src="js/ranking.js?v=101"></script>
+</body>
+</html>
+
+
+
+
+
+
+

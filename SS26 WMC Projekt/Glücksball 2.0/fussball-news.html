@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>GlücksBall Fußball-News</title>
+  <link rel="icon" href="image/Logo.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <header class="header">
+    <h1>GlücksBall 2.0</h1>
+    <p><strong>Wir wetten nicht nur um Geld, sondern um Ruhm, Ehre und Schadenfreude!</strong></p>
+
+    <nav class="nav">
+      <a href="index.html">Start</a>
+      <a href="fussballmeisterschaften.html">Meisterschaften</a>
+      <a href="tipps.html">Ehrentipps</a>
+      <a href="spasstipp.html">Spaßtipps</a>
+      <a href="ranking.html">Ranking</a>
+      <a href="fussball-news.html" class="active">News</a>
+      <a href="forum.html">Forum</a>
+      <a href="regeln.html">Regeln</a>
+
+      
+
+      <div class="auth-area" id="authArea">
+        <div class="auth-status" id="authStatus">
+          <span class="led" id="loginLed" aria-label="Login Status"></span>
+          <span class="auth-name" id="navUsername">Gast</span>
+        </div>
+
+        <div id="authGuest">
+          <button id="authToggle" class="btn btn-ghost" type="button">Login</button>
+          <div class="auth-box" id="authBox">
+            <form id="loginForm">
+              <h3>Login</h3>
+              <input type="text" id="loginName" placeholder="Benutzername" required>
+              <input type="password" id="loginPass" placeholder="Passwort" required>
+              <button class="btn" type="submit">Login</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="authUser" style="display:none;">
+          <button id="logoutBtn" class="btn btn-ghost" type="button">Logout</button>
+        </div>
+      </div>
+
+      <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
+    </nav>
+  </header>
+
+  <aside class="news-ad news-ad-left" aria-label="Werbung links">
+    <a href="https://www.spengergasse.at/" target="_blank" rel="noopener">
+      <img src="image/werbung.png" alt="Werbung Spengergasse">
+    </a>
+  </aside>
+
+  <aside class="news-ad news-ad-right" aria-label="Werbung rechts">
+    <a href="https://www.spengergasse.at/" target="_blank" rel="noopener">
+      <img src="image/werbung.png" alt="Werbung Spengergasse">
+    </a>
+  </aside>
+
+  <main class="page football-news-page">
+    <section class="football-news-head">
+      <h1>Fußball-News</h1>
+      <p class="muted">Nur Fußball: Nachrichten, Videos, Bilder und wichtige Links direkt aus der API.</p>
+    </section>
+
+    <section class="football-news-shell">
+      <section class="football-news-main">
+        <div id="footballNewsStatus" class="notice">Lade Fußball-News...</div>
+        <div id="footballNewsGrid" class="football-news-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/fussball-news.js"></script>
+</body>
+</html>
+
+

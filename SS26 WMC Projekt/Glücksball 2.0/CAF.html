@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <!-- =========================================================
+       META / GRUNDLAGEN
+       ========================================================= -->
+    <meta charset="UTF-8">
+    <title>Glücksball CAF</title>
+
+    <!-- Favicon (Tab-Icon) -->
+    <link rel="icon" href="image/Logo.png" type="image/png">
+
+    <!-- Zentrales Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Responsive Viewport (wichtig für Mobile) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <!-- =========================================================
+       HEADER
+       - Titel
+       - Slogan
+       - Navigation (sticky per CSS)
+       ========================================================= -->
+    <header class="header">
+
+        <!-- Hauptüberschrift -->
+        <h1>GlücksBall 2.0</h1>
+
+        <!-- Slogan -->
+        <p>
+            <strong>
+                Wir wetten nicht nur um Geld, sondern um Ruhm, Ehre und Schadenfreude!
+            </strong>
+        </p>
+
+        <!-- =======================================================
+         NAVIGATION
+         - Seitenlinks
+         - Login-/Auth-Bereich
+         - Theme Toggle
+         ======================================================= -->
+        <nav class="nav">
+      <a href="index.html">Start</a>
+      <a href="fussballmeisterschaften.html" class="active">Meisterschaften</a>
+      <a href="tipps.html">Ehrentipps</a>
+      <a href="spasstipp.html">Spaßtipps</a>
+      <a href="ranking.html">Ranking</a>
+      <a href="fussball-news.html">News</a>
+      <a href="forum.html">Forum</a>
+      <a href="regeln.html">Regeln</a>
+
+      
+            <div class="auth-area" id="authArea">
+
+                <!-- Statusanzeige -->
+                <div class="auth-status" id="authStatus">
+                    <span class="led" id="loginLed" aria-label="Login Status"></span>
+                    <span class="auth-name" id="navUsername">Gast</span>
+                </div>
+
+                <!-- Gast-Ansicht -->
+                <div id="authGuest">
+
+                    <!-- Login Button -->
+                    <button id="authToggle" class="btn btn-ghost" type="button">
+                        Login
+                    </button>
+
+                    <!-- Login-Dropdown -->
+                    <div class="auth-box" id="authBox">
+                        <form id="loginForm">
+
+                            <!-- Formular-Titel -->
+                            <h3>Login</h3>
+
+                            <!-- Benutzername -->
+                            <input type="text" id="loginName" placeholder="Benutzername" required>
+
+                            <!-- Passwort -->
+                            <input type="password" id="loginPass" placeholder="Passwort" required>
+
+                            <!-- Absenden -->
+                            <button class="btn" type="submit">Login</button>
+
+                        </form>
+                    </div>
+                </div>
+
+                <!-- User-Ansicht (per JS ein/ausgeblendet) -->
+                <div id="authUser" style="display:none;">
+                    <button id="logoutBtn" class="btn btn-ghost" type="button">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dark / Light Theme Toggle -->
+            <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
+
+        </nav>
+    </header>
+
+    <!-- =========================================================
+       MAIN-BEREICH
+       Grid-Layout:
+       - Links: Hauptinhalt
+       - Rechts: Gruppentabellen (Aside)
+       ========================================================= -->
+    <main class="afcon-layout">
+
+        <!-- =====================================================
+         LINKER CONTENT-BEREICH
+         ===================================================== -->
+        <section class="afcon-content">
+
+            <section class="afcon-hero card">
+                <p class="afcon-kicker">CAF & WM 2026</p>
+                <h2>CAF – Überblick</h2>
+                <p>
+                    Alles rund um die WM-Gruppen, kommende K.-o.-Runden, Torjäger und
+                    die wichtigsten Nationalteam-Infos auf einen Blick.
+                </p>
+            </section>
+
+            <!-- ===================================================
+           INTRO-BEREICH
+           - Bild oben (eigene Card)
+           - Video darunter (eigene Card)
+           Hinweis: dafür muss .intro-grid in CSS auf 1 Spalte stehen
+           =================================================== -->
+            <section class="intro-grid" aria-label="CAF Intro Medien">
+
+                <!-- =======================
+             ARTICLE: BILD (OBEN)
+             ======================= -->
+                <article class="card">
+                    <h3>Bild des Turniers</h3>
+
+                    <figure class="media-image">
+                        <img src="image/wm-2026-teilnahmer-alle-gruppen-quer.jpg" alt="WM 2026 Gruppenübersicht">
+                        <figcaption class="muted">Die Gruppenübersicht zur WM 2026.</figcaption>
+                    </figure>
+                </article>
+
+                <!-- =======================
+             ARTICLE: INTRO-VIDEO (UNTEN)
+             ======================= -->
+                <article class="card">
+                    <h3>Turnier-Video</h3>
+
+                    <div class="video-wrap">
+                        <video controls preload="metadata">
+                            <source src="video/The Official FIFA World Cup 26™ Theme.mp4" type="video/mp4">
+                            Dein Browser unterstützt dieses Video nicht.
+                        </video>
+                    </div>
+
+                    <p class="muted">WM-Stimmung, Gruppenphase und Turnier-Vorschau.</p>
+                </article>
+
+            </section>
+
+            <!-- =======================
+           ARTICLE: KO-RUNDE
+           (wird per JavaScript befüllt)
+           ======================= -->
+            <article class="card">
+                <h3>K.-o.-Runde</h3>
+                <div id="koContainer"></div>
+            </article>
+
+            <!-- =======================
+           ARTICLE: TORJÄGERLISTE
+           (wird per JavaScript befüllt)
+           ======================= -->
+            <article class="card">
+                <h3>Torjägerliste</h3>
+                <div id="topScorers"></div>
+            </article>
+
+        </section>
+
+        <!-- =====================================================
+         ASIDE / SIDEBAR
+         Gruppentabellen
+         - Desktop: rechts
+         - Mobile: unter dem Content
+         ===================================================== -->
+        <aside class="afcon-sidebar">
+
+            <!-- Sidebar-Überschrift -->
+            <h2>Gruppentabellen</h2>
+
+            <!-- Ziel-Element für Gruppen (JS) -->
+            <div id="groups"></div>
+
+        </aside>
+
+    </main>
+
+    <!-- =========================================================
+       JAVASCRIPT
+       - app.js  → Theme, Login, Navigation
+       - afcon.js → Daten laden & Inhalte rendern
+       ========================================================= -->
+    <script src="js/app.js"></script>
+    <script src="js/caf.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+

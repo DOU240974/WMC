@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>GlücksBall Regeln</title>
+  <link rel="icon" href="image/Logo.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <header class="header">
+    <h1>GlücksBall 2.0</h1>
+    <p><strong>Wir wetten nicht nur um Geld, sondern um Ruhm, Ehre und Schadenfreude!</strong></p>
+
+    <nav class="nav">
+      <a href="index.html">Start</a>
+      <a href="fussballmeisterschaften.html">Meisterschaften</a>
+      <a href="tipps.html">Ehrentipps</a>
+      <a href="spasstipp.html">Spaßtipps</a>
+      <a href="ranking.html">Ranking</a>
+      <a href="fussball-news.html">News</a>
+      <a href="forum.html">Forum</a>
+      <a href="regeln.html" class="active">Regeln</a>
+
+      
+
+      <div class="auth-area" id="authArea">
+        <div class="auth-status" id="authStatus">
+          <span class="led" id="loginLed" aria-label="Login Status"></span>
+          <span class="auth-name" id="navUsername">Gast</span>
+        </div>
+
+        <div id="authGuest">
+          <button id="authToggle" class="btn btn-ghost" type="button">Login</button>
+          <div class="auth-box" id="authBox">
+            <form id="loginForm">
+              <h3>Login</h3>
+              <input type="text" id="loginName" placeholder="Benutzername" required>
+              <input type="password" id="loginPass" placeholder="Passwort" required>
+              <button class="btn" type="submit">Login</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="authUser" style="display:none;">
+          <button id="logoutBtn" class="btn btn-ghost" type="button">Logout</button>
+        </div>
+      </div>
+
+      <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
+    </nav>
+  </header>
+
+  <main class="page rules-page">
+    <h1>Regeln</h1>
+    <p class="muted">Kurz, fair und eindeutig.</p>
+
+    <section class="rules-grid">
+      <article class="rules-block">
+        <h2>Ehrentipps</h2>
+        <p>WM-Spieltipps zählen für das Ranking. Exaktes Ergebnis gibt 3 Punkte, richtige Tendenz gibt 1 Punkt.</p>
+      </article>
+
+      <article class="rules-block">
+        <h2>WM-Favorit</h2>
+        <p>Vor dem ersten WM-Spiel können Weltmeister, Top-Torjäger und Gesamt-Tore getippt werden. Jede richtige Kategorie bringt 25 Punkte.</p>
+      </article>
+
+      <article class="rules-block">
+        <h2>Spaßtipps</h2>
+        <p>Freundschaftsspiele laufen separat und zählen nicht in das Ehren-Ranking.</p>
+      </article>
+
+      <article class="rules-block">
+        <h2>Forum</h2>
+        <p>Schreiben können eingeloggte User. Bleib fair, kein Spam, keine Beleidigungen und keine privaten Daten posten.</p>
+      </article>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
+
