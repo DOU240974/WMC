@@ -42,6 +42,7 @@ function load_tips(PDO $pdo, int $userId): array {
     JOIN spiele s ON s.id = t.spiel_id
     WHERE t.user_id = :uid
       AND s.aktiv = 1
+      AND s.competition IN ('WM 2026', 'Freundschaftsspiel')
     ORDER BY s.date ASC, s.id ASC
   ");
   $stmt->execute([':uid' => $userId]);

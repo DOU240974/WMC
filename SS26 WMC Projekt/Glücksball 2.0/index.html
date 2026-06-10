@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Glücksball 2.0</title>
+  <title>Glücksball</title>
 
   <!-- Tab-Icon -->
   <link rel="icon" href="image/Logo.png" type="image/png">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=12">
 
   <!-- Responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +21,8 @@
        HEADER: Titel + Slogan + Navigation + Auth + Theme
        ========================================================= -->
   <header class="header">
-    <h1>GlücksBall 2.0</h1>
-    <p><strong>Wir wetten nicht nur um Geld, sondern um Ruhm, Ehre und Schadenfreude!</strong></p>
+    <h1>GlücksBall</h1>
+    <p><strong>Wir tippen nicht nur auf Ergebnisse, sondern auf Ruhm, Ehre und Schadenfreude!</strong></p>
 
     <nav class="nav">
       <a href="index.html" class="active">Start</a>
@@ -55,6 +55,13 @@
               <input type="text" id="loginName" placeholder="Benutzername" required>
               <input type="password" id="loginPass" placeholder="Passwort" required>
               <button class="btn" type="submit">Login</button>
+            </form>
+            <button class="auth-link" id="forgotToggle" type="button">Passwort vergessen?</button>
+            <form id="forgotForm" class="forgot-form" style="display:none;">
+              <h3>Reset-Link senden</h3>
+              <input type="text" id="forgotName" placeholder="Benutzername" required>
+              <input type="email" id="forgotEmail" placeholder="E-Mail" required>
+              <button class="btn" type="submit">Link per E-Mail senden</button>
             </form>
           </div>
         </div>
@@ -95,16 +102,16 @@
          MITTE: WELCOME + REGISTER
          ======================= -->
     <section class="card">
-      <h2>Willkommen bei GlücksBall VIE</h2>
-      <p>GlücksBallVIE ist ein reines Spaßprojekt für Sportsfreunde und deren Sportsfreunde.</p>
-      <p>Es geht nicht um echtes Geld oder ernste Wetten, sondern um Freude am Spiel,</p>
+      <h2>Willkommen bei GlücksBall!</h2>
+      <p>GlücksBall ist ein reines Spaßprojekt für Sportsfreunde und deren Sportsfreunde.</p>
+      <p>Es geht nicht um echtes Geld oder ernste Einsätze, sondern um Freude am Spiel,</p>
       <p>den Austausch mit Freunden und den Spaß am gemeinsamen Tippen.</p>
       <p>Alles basiert auf Vertrauen, Fairplay und einer großen Portion guter Laune.</p>
 
       <hr class="line">
 
       <h2>Registrieren</h2>
-      <p style="color:var(--muted);">Erstelle ein Konto, um Wetten abzugeben.</p>
+      <p style="color:var(--muted);">Erstelle ein Konto. Nach deiner Registrierung muss es noch freigegeben werden.</p>
 
       <!-- Register Form wird in app.js via api/register.php verarbeitet -->
       <form id="registerForm" class="form">
@@ -135,7 +142,7 @@
          ======================= -->
     <section class="card upcoming-card">
       <h2>Kommende Nationalspiele</h2>
-      <p style="color:var(--muted);">Freundschaftsspiele, WM-Spiele und andere Nationalteam-Termine.</p>
+      <p style="color:var(--muted);">Nur Spiele aus Ehrentipps und Spaßtipps.</p>
 
       <!-- Wird von app.js gerendert (renderNextMatches) -->
       <div id="upcomingMatches"></div>
@@ -148,11 +155,11 @@
        FOOTER
        ========================================================= -->
   <footer class="footer">
-    <p>© 2026 Fußball Wettseite</p>
+    <p>© 2026 GlücksBall – Fußball-Tippspiel</p>
   </footer>
 
   <!-- app.js: Theme + Auth + News + Upcoming Matches -->
-  <script src="js/app.js?v=3"></script>
+  <script src="js/app.js?v=10"></script>
 
 </body>
 

@@ -17,6 +17,7 @@ session_start();
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/auth_guard.php';
 
 // ----------------------------
 // Helper: JSON antworten
@@ -30,10 +31,7 @@ function out(array $payload, int $code = 200): void {
 // ----------------------------
 // Login required
 // ----------------------------
-if (!isset($_SESSION['user_id'])) {
-  out(["ok" => false, "error" => "Not logged in"], 401);
-}
-$userId = (int)$_SESSION['user_id'];
+$userId = require_approved_user($pdo);
 
 // ----------------------------
 // Request JSON lesen

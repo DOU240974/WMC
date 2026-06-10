@@ -5,6 +5,7 @@ session_start();
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/auth_guard.php';
 
 function out(array $payload, int $code = 200): void {
   http_response_code($code);
@@ -25,10 +26,7 @@ function valid_score(mixed $value): bool {
 }
 
 try {
-  $userId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
-  if ($userId <= 0) {
-    out(['ok' => false, 'error' => 'Bitte zuerst einloggen.'], 401);
-  }
+  $userId = require_approved_user($pdo);
 
   $data = read_json_body();
   $spielId = (int)($data['spiel_id'] ?? 0);
@@ -76,4 +74,3 @@ try {
 } catch (Throwable $e) {
   out(['ok' => false, 'error' => 'DB error: ' . $e->getMessage()], 500);
 }
-

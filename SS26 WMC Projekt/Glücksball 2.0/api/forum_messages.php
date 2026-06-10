@@ -23,23 +23,44 @@ function ensure_forum_table(PDO $pdo): void {
       INDEX idx_forum_user (user_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
   ");
+
+  $pdo->exec("
+    CREATE TABLE IF NOT EXISTS forum_reactions (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      message_id INT NOT NULL,
+      user_id INT NOT NULL,
+      reaction ENUM('like','dislike') NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      UNIQUE KEY uniq_forum_reaction (message_id, user_id),
+      INDEX idx_forum_reaction_message (message_id),
+      INDEX idx_forum_reaction_user (user_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+  ");
 }
 
 try {
   ensure_forum_table($pdo);
 
   if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $stmt = $pdo->query("
+    $userId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
+    $stmt = $pdo->prepare("
       SELECT
         m.id,
         m.message,
         m.created_at,
-        u.username
+        u.username,
+        COALESCE(SUM(CASE WHEN r.reaction = 'like' THEN 1 ELSE 0 END), 0) AS likes,
+        COALESCE(SUM(CASE WHEN r.reaction = 'dislike' THEN 1 ELSE 0 END), 0) AS dislikes,
+        MAX(CASE WHEN r.user_id = :uid THEN r.reaction ELSE NULL END) AS my_reaction
       FROM forum_messages m
       JOIN users u ON u.id = m.user_id
+      LEFT JOIN forum_reactions r ON r.message_id = m.id
+      GROUP BY m.id, m.message, m.created_at, u.username
       ORDER BY m.created_at DESC, m.id DESC
       LIMIT 80
     ");
+    $stmt->execute([':uid' => $userId]);
     $rows = array_reverse($stmt->fetchAll(PDO::FETCH_ASSOC));
 
     out([
@@ -61,6 +82,58 @@ try {
   $data = json_decode((string)file_get_contents('php://input'), true);
   if (!is_array($data)) {
     out(['ok' => false, 'error' => 'Ungültiges JSON.'], 400);
+  }
+
+  if (isset($data['reaction'], $data['message_id'])) {
+    $messageId = (int)$data['message_id'];
+    $reaction = (string)$data['reaction'];
+
+    if ($messageId <= 0 || !in_array($reaction, ['like', 'dislike'], true)) {
+      out(['ok' => false, 'error' => 'Ungültige Bewertung.'], 400);
+    }
+
+    $check = $pdo->prepare("SELECT id FROM forum_messages WHERE id = :id LIMIT 1");
+    $check->execute([':id' => $messageId]);
+    if (!$check->fetch()) {
+      out(['ok' => false, 'error' => 'Nachricht nicht gefunden.'], 404);
+    }
+
+    $existing = $pdo->prepare("
+      SELECT reaction
+      FROM forum_reactions
+      WHERE message_id = :mid AND user_id = :uid
+      LIMIT 1
+    ");
+    $existing->execute([
+      ':mid' => $messageId,
+      ':uid' => (int)$_SESSION['user_id'],
+    ]);
+    $current = $existing->fetch(PDO::FETCH_ASSOC);
+
+    if ($current && (string)$current['reaction'] === $reaction) {
+      $delete = $pdo->prepare("
+        DELETE FROM forum_reactions
+        WHERE message_id = :mid AND user_id = :uid
+      ");
+      $delete->execute([
+        ':mid' => $messageId,
+        ':uid' => (int)$_SESSION['user_id'],
+      ]);
+      out(['ok' => true, 'reaction' => null]);
+    }
+
+    $upsert = $pdo->prepare("
+      INSERT INTO forum_reactions (message_id, user_id, reaction)
+      VALUES (:mid, :uid, :reaction)
+      ON DUPLICATE KEY UPDATE reaction = VALUES(reaction), updated_at = CURRENT_TIMESTAMP
+    ");
+    $upsert->execute([
+      ':mid' => $messageId,
+      ':uid' => (int)$_SESSION['user_id'],
+      ':reaction' => $reaction,
+    ]);
+
+    out(['ok' => true, 'reaction' => $reaction]);
   }
 
   $message = trim((string)($data['message'] ?? ''));

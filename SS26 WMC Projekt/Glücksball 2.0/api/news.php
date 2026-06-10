@@ -320,9 +320,9 @@ usort($unique, function($a, $b) {
 });
 
 /* =========================
-   LIMIT: genau 4 News
+   LIMIT: genau 5 News
    ========================= */
-$unique = array_slice($unique, 0, 4);
+$unique = array_slice($unique, 0, 5);
 
 // Finale JSON-Antwort
 echo json_encode([

@@ -83,6 +83,30 @@ const STAT_FLAGS = {
   "Wales": "gb-wls"
 };
 
+Object.assign(STAT_FLAGS, {
+  "Afghanistan": "af",
+  "Algeria": "dz",
+  "Bolivia": "bo",
+  "Costa Rica": "cr",
+  "Curacao": "cw",
+  "Curaçao": "cw",
+  "DR Kongo": "cd",
+  "Elfenbeinküste": "ci",
+  "Ivory Coast": "ci",
+  "Jordanien": "jo",
+  "Katar": "qa",
+  "Mexico": "mx",
+  "Mexiko": "mx",
+  "Pakistan": "pk",
+  "Saudi-Arabien": "sa",
+  "Schweiz": "ch",
+  "Südkorea": "kr",
+  "Türkei": "tr",
+  "Usbekistan": "uz",
+  "Ägypten": "eg",
+  "Österreich": "at"
+});
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")

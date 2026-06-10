@@ -1,14 +1,22 @@
 ﻿const FUN_FLAGS = {
   "Ägypten": "eg",
   "Algerien": "dz",
+  "Afghanistan": "af",
+  "Argentina": "ar",
   "Argentinien": "ar",
+  "Austria": "at",
   "Belgien": "be",
+  "Bolivia": "bo",
   "Brasilien": "br",
   "Chile": "cl",
+  "Costa Rica": "cr",
+  "Czech Republic": "cz",
   "Dänemark": "dk",
   "Deutschland": "de",
   "England": "gb-eng",
+  "France": "fr",
   "Frankreich": "fr",
+  "Germany": "de",
   "Ghana": "gh",
   "Griechenland": "gr",
   "Honduras": "hn",
@@ -16,6 +24,7 @@
   "Italien": "it",
   "Kroatien": "hr",
   "Luxemburg": "lu",
+  "Morocco": "ma",
   "Marokko": "ma",
   "Neuseeland": "nz",
   "Niederlande": "nl",
@@ -23,15 +32,20 @@
   "Nordirland": "gb-nir",
   "Nordmazedonien": "mk",
   "Norwegen": "no",
+  "Norway": "no",
   "Österreich": "at",
   "Oesterreich": "at",
+  "Pakistan": "pk",
   "Polen": "pl",
   "Portugal": "pt",
+  "Spain": "es",
+  "Switzerland": "ch",
   "Schweden": "se",
   "Spanien": "es",
   "Tunesien": "tn",
   "Türkei": "tr",
   "Ukraine": "ua",
+  "Uruguay": "uy",
   "USA": "us",
   "Wales": "gb-wls"
 };
@@ -60,15 +74,10 @@ function teamHtml(teamName) {
 
 function formatDate(value) {
   if (!value) return "Spielbeginn offen";
-  const date = new Date(String(value).replace(" ", "T"));
-  if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+  const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+  if (!match) return value;
+  const [, year, month, day, hour, minute] = match;
+  return `${day}.${month}.${year}, ${hour}:${minute} Uhr MESZ`;
 }
 
 function visibleVenue(value) {
@@ -150,7 +159,7 @@ function startFunCardExpiryWatcher() {
 
 async function initSpasstipp() {
   const notice = document.getElementById("authNotice");
-  const data = await funApi("fun_matches.php");
+  const data = await funApi("fun_matches_v2.php");
   const matches = data.matches || [];
 
   if (notice && !data.loggedIn) {

@@ -36,15 +36,29 @@ function renderForumMessages(messages) {
   const wrap = document.getElementById("forumMessages");
   if (!wrap) return;
 
-  wrap.innerHTML = (messages || []).map(message => `
-    <article class="forum-message">
+  wrap.innerHTML = (messages || []).map(message => {
+    const likes = Number(message.likes ?? 0);
+    const dislikes = Number(message.dislikes ?? 0);
+    const myReaction = String(message.my_reaction || "");
+
+    return `
+    <article class="forum-message" data-message-id="${forumEscape(message.id)}">
       <div class="forum-message-head">
         <strong>${forumEscape(message.username)}</strong>
         <span>${forumEscape(forumDate(message.created_at))}</span>
       </div>
       <p>${forumEscape(message.message)}</p>
+      <div class="forum-reactions">
+        <button class="forum-reaction ${myReaction === "like" ? "active" : ""}" type="button" data-reaction="like" data-message-id="${forumEscape(message.id)}">
+          Like <strong>${likes}</strong>
+        </button>
+        <button class="forum-reaction ${myReaction === "dislike" ? "active" : ""}" type="button" data-reaction="dislike" data-message-id="${forumEscape(message.id)}">
+          Dislike <strong>${dislikes}</strong>
+        </button>
+      </div>
     </article>
-  `).join("") || `<div class="notice">Noch keine Nachrichten.</div>`;
+  `;
+  }).join("") || `<div class="notice">Noch keine Nachrichten.</div>`;
 
   wrap.scrollTop = wrap.scrollHeight;
 }
@@ -86,9 +100,29 @@ async function sendForumMessage(event) {
   }
 }
 
+async function voteForumMessage(event) {
+  const button = event.target.closest("[data-reaction][data-message-id]");
+  if (!button) return;
+
+  const messageId = Number(button.getAttribute("data-message-id") || "0");
+  const reaction = button.getAttribute("data-reaction");
+  if (!messageId || !reaction) return;
+
+  button.disabled = true;
+  try {
+    await forumApi({ message_id: messageId, reaction });
+    await loadForumMessages();
+  } catch (err) {
+    alert(err.message);
+  } finally {
+    button.disabled = false;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("forumForm")?.addEventListener("submit", sendForumMessage);
   document.getElementById("forumRefresh")?.addEventListener("click", loadForumMessages);
+  document.getElementById("forumMessages")?.addEventListener("click", voteForumMessage);
   loadForumMessages();
   setInterval(loadForumMessages, 15000);
 });

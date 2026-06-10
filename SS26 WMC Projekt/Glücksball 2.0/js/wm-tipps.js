@@ -1,4 +1,5 @@
 const GROUPS = ["Alle", "Group A", "Group B", "Group C", "Group D", "Group E", "Group F", "Group G", "Group H", "Group I", "Group J", "Group K", "Group L"];
+const KNOCKOUT_STAGES = ["Sechzehntelfinale", "Achtelfinale", "Viertelfinale", "Halbfinale", "Spiel um Platz 3", "Finale"];
 
 const TEAM_FLAGS = {
   "Algeria": "dz",
@@ -152,32 +153,43 @@ async function wmApi(path, data) {
 
 function formatMatchDate(value) {
   if (!value) return "Spielbeginn offen";
-  const date = new Date(String(value).replace(" ", "T"));
-  if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+  const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+  if (!match) return value;
+  const [, year, month, day, hour, minute] = match;
+  return `${day}.${month}.${year}, ${hour}:${minute} Uhr MESZ`;
 }
 
 function groupLabel(group) {
   return group === "Alle" ? "Alle Gruppen" : group.replace("Group ", "Gruppe ");
 }
 
+function isGroupMatch(match) {
+  return /^Group [A-L]$/.test(String(match.group_name || ""));
+}
+
+function matchNumber(matchId) {
+  const match = String(matchId || "").match(/M(\d+)$/);
+  return match ? Number(match[1]) : 0;
+}
+
+function isPlaceholderTeam(teamName) {
+  const name = String(teamName || "").trim();
+  return (
+    name === "" ||
+    /^(\d+\.\s*)?Gruppe\s+[A-L]$/i.test(name) ||
+    /^(\d+\.\s*)?Group\s+[A-L]$/i.test(name) ||
+    /^(Sieger|Verlierer|Winner|Loser)\s+\d+$/i.test(name) ||
+    /^\d+\.\s*[A-L](\/[A-L])+/i.test(name)
+  );
+}
+
+function hasKnownKnockoutTeams(match) {
+  return !isPlaceholderTeam(match.team_home) && !isPlaceholderTeam(match.team_away);
+}
+
 function formatDeadline(value) {
   if (!value) return "Beginn des ersten WM-Spiels offen";
-  const date = new Date(String(value).replace(" ", "T"));
-  if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+  return formatMatchDate(value);
 }
 
 function setFavoriteDisabled(disabled) {
@@ -289,9 +301,10 @@ function renderMatches(matches, activeGroup) {
   const wrap = document.getElementById("wmMatches");
   if (!wrap) return;
 
+  const groupMatches = matches.filter(isGroupMatch);
   const filtered = activeGroup === "Alle"
-    ? matches
-    : matches.filter(match => match.group_name === activeGroup);
+    ? groupMatches
+    : groupMatches.filter(match => match.group_name === activeGroup);
 
   const openMatches = filtered.filter(match => {
     const kickoff = match.date && new Date(String(match.date).replace(" ", "T")).getTime();
@@ -336,6 +349,70 @@ function renderMatches(matches, activeGroup) {
       </article>
     `;
   }).join("") || `<div class="notice">Keine Spiele gefunden.</div>`;
+}
+
+function renderKnockoutMatches(matches) {
+  const wrap = document.getElementById("wmKnockoutMatches");
+  const section = document.getElementById("wmKnockoutSection");
+  if (!wrap) return;
+
+  const knockoutMatches = matches
+    .filter(match => KNOCKOUT_STAGES.includes(match.group_name))
+    .filter(hasKnownKnockoutTeams)
+    .sort((a, b) => matchNumber(a.match_id) - matchNumber(b.match_id));
+
+  if (section) {
+    section.style.display = knockoutMatches.length ? "block" : "none";
+  }
+
+  wrap.innerHTML = KNOCKOUT_STAGES.map(stage => {
+    const stageMatches = knockoutMatches.filter(match => match.group_name === stage);
+    if (!stageMatches.length) return "";
+
+    return `
+      <section class="knockout-stage">
+        <h3>${escapeHtml(stage)}</h3>
+        <div class="knockout-stage-grid">
+          ${stageMatches.map(renderKnockoutCard).join("")}
+        </div>
+      </section>
+    `;
+  }).join("") || `<div class="notice">Keine Finalrunden-Spiele gefunden.</div>`;
+}
+
+function renderKnockoutCard(match) {
+  const kickoffMs = match.date ? new Date(String(match.date).replace(" ", "T")).getTime() : 0;
+  const locked = kickoffMs && kickoffMs <= Date.now();
+  const hasTip = match.tipp_home !== null && match.tipp_away !== null;
+  const badgeText = hasTip ? "Getippt" : "Tipp bis Spielbeginn";
+
+  return `
+    <article class="ko-card knockout-card ${hasTip ? "is-tipped" : ""} ${locked ? "is-locked" : ""}" data-spiel-id="${escapeHtml(match.id)}" data-kickoff="${escapeHtml(kickoffMs)}">
+      <div class="ko-head">
+        <div class="ko-stage">${escapeHtml(match.match_id)} <span class="lock-badge">${escapeHtml(badgeText)}</span></div>
+        <div class="ko-meta">${escapeHtml(formatMatchDate(match.date))}</div>
+      </div>
+
+      <div class="knockout-teams">
+        <strong>${escapeHtml(match.team_home)}</strong>
+        <span class="vs">:</span>
+        <strong>${escapeHtml(match.team_away)}</strong>
+      </div>
+
+      <div class="tip-row">
+        <input class="score-input ${hasTip ? "is-saved" : ""}" type="number" min="0" max="20" data-home value="${hasTip ? escapeHtml(match.tipp_home) : ""}" ${locked ? "disabled" : ""}>
+        <span class="sep">:</span>
+        <input class="score-input ${hasTip ? "is-saved" : ""}" type="number" min="0" max="20" data-away value="${hasTip ? escapeHtml(match.tipp_away) : ""}" ${locked ? "disabled" : ""}>
+      </div>
+
+      <div class="card-actions">
+        <div class="small">${escapeHtml(visibleVenue(match.venue))}</div>
+        <button class="btn" type="button" data-save="${escapeHtml(match.id)}" ${locked ? "disabled" : ""}>
+          ${hasTip ? "Tipp ändern" : "Tipp speichern"}
+        </button>
+      </div>
+    </article>
+  `;
 }
 
 function startTipCardExpiryWatcher(containerId) {
@@ -401,7 +478,7 @@ async function initWmTipps() {
     loadWmFavorite();
     document.getElementById("wmFavoriteSave")?.addEventListener("click", saveWmFavorite);
 
-    const data = await wmApi("wm_matches.php");
+    const data = await wmApi("wm_matches_v2.php");
     const matches = data.matches || [];
 
     if (notice && !data.loggedIn) {
@@ -411,7 +488,9 @@ async function initWmTipps() {
 
     renderGroupFilters(activeGroup);
     renderMatches(matches, activeGroup);
+    renderKnockoutMatches(matches);
     startTipCardExpiryWatcher("wmMatches");
+    startTipCardExpiryWatcher("wmKnockoutMatches");
 
     document.getElementById("wmFilters")?.addEventListener("click", (event) => {
       const button = event.target.closest("[data-group]");
@@ -421,9 +500,9 @@ async function initWmTipps() {
       renderMatches(matches, activeGroup);
     });
 
-    document.getElementById("wmMatches")?.addEventListener("click", async (event) => {
+    document.addEventListener("click", async (event) => {
       const button = event.target.closest("[data-save]");
-      if (!button) return;
+      if (!button || (!button.closest("#wmMatches") && !button.closest("#wmKnockoutMatches"))) return;
 
       const card = button.closest(".ko-card");
       const spielId = Number(button.getAttribute("data-save"));

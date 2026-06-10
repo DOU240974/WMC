@@ -280,6 +280,40 @@ function setupLoginFormNavbar() {
   });
 }
 
+function setupForgotPasswordForm() {
+  const toggle = document.getElementById("forgotToggle");
+  const form = document.getElementById("forgotForm");
+  if (!toggle || !form) return;
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    form.style.display = form.style.display === "grid" ? "none" : "grid";
+  });
+
+  form.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById("forgotName")?.value.trim();
+    const email = document.getElementById("forgotEmail")?.value.trim();
+    try {
+      const result = await api("forgot_password.php", { username, email });
+      let message = result.message || "Reset-Link wurde verschickt.";
+      if (result.reset_link) {
+        message += `\n\nLokaler Test-Link:\n${result.reset_link}`;
+      }
+      alert(message);
+      form.reset();
+      form.style.display = "none";
+    } catch (err) {
+      alert(err.message);
+    }
+  });
+}
+
 /* =========================================================
    REGISTER FORM - via api/register.php
    ========================================================= */
@@ -301,8 +335,8 @@ function setupRegisterForm() {
     const password = document.getElementById("regPass")?.value;
 
     try {
-      await api("register.php", { username, email, password });
-      alert("Registrierung erfolgreich! Jetzt oben einloggen.");
+      const result = await api("register.php", { username, email, password });
+      alert(result.message || "Registrierung gespeichert. Dein Konto muss noch freigegeben werden.");
       form.reset();
     } catch (err) {
       alert(err.message);
@@ -342,70 +376,6 @@ async function protectBetsPage() {
 }
 
 /* =========================================================
-   AFCON MATCHES + BET (DB)
-   ========================================================= */
-
-/**
- * loadAfconMatches()
- * - lädt Matchliste aus api/afcon_matches.php
- * - befüllt <select id="matchSelect">
- * - Anzeige: "Home vs Away (Datum)"
- */
-async function loadAfconMatches() {
-  const select = document.getElementById("matchSelect");
-  if (!select) return;
-
-  select.innerHTML = `<option value="">Lade AFCON Matches...</option>`;
-
-  try {
-    const matches = await api("afcon_matches.php");
-
-    if (!Array.isArray(matches) || matches.length === 0) {
-      select.innerHTML = `<option value="">Keine AFCON Matches in der DB</option>`;
-      return;
-    }
-
-    select.innerHTML = `<option value="">Bitte Match wählen</option>`;
-    for (const m of matches) {
-      const dt = m.match_date ? new Date(m.match_date).toLocaleDateString("de-DE") : "Datum offen";
-      const opt = document.createElement("option");
-      opt.value = m.id;
-      opt.textContent = `${m.home_name} vs ${m.away_name} (${dt})`;
-      select.appendChild(opt);
-    }
-  } catch (err) {
-    select.innerHTML = `<option value="">Fehler beim Laden</option>`;
-  }
-}
-
-/**
- * setupBetForm()
- * - verarbeitet das Formular #betForm
- * - sendet match_id + pick an place_bet.php
- */
-function setupBetForm() {
-  const form = document.getElementById("betForm");
-  if (!form) return;
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const match_id = parseInt(document.getElementById("matchSelect")?.value, 10);
-    const pick = document.getElementById("pickSelect")?.value;
-
-    if (!match_id) return alert("Bitte ein AFCON Match auswählen.");
-
-    try {
-      await api("place_bet.php", { match_id, pick });
-      alert("AFCON-Wette gespeichert!");
-      form.reset();
-    } catch (err) {
-      alert(err.message);
-    }
-  });
-}
-
-/* =========================================================
    KOMMENDE SPIELE (Startseite) - als Karten: Flagge Land VS Flagge Land
    ========================================================= */
 
@@ -415,6 +385,7 @@ function setupBetForm() {
  * - enthält Aliases (DR Kongo / Kongo DR / Demokratische Republik Kongo)
  */
 const flags = {
+  "Afghanistan": "af",
   "Algeria": "dz",
   "Argentina": "ar",
   "Australia": "au",
@@ -448,11 +419,13 @@ const flags = {
   "USA": "us",
   "Wales": "gb-wls",
   "Belgium": "be",
+  "Bolivia": "bo",
   "Bosnia and Herzegovina": "ba",
   "Brazil": "br",
   "Canada": "ca",
   "Cape Verde": "cv",
   "Colombia": "co",
+  "Costa Rica": "cr",
   "Croatia": "hr",
   "Curacao": "cw",
   "Czech Republic": "cz",
@@ -475,6 +448,7 @@ const flags = {
   "New Zealand": "nz",
   "Norway": "no",
   "Panama": "pa",
+  "Pakistan": "pk",
   "Paraguay": "py",
   "Portugal": "pt",
   "Qatar": "qa",
@@ -564,7 +538,7 @@ function getFlagUrl(teamName) {
 
 /**
  * renderNextMatches
- * - rendert die nächsten 5 zukünftigen Spiele in #upcomingMatches
+ * - rendert die nächsten 4 zukünftigen Spiele in #upcomingMatches
  * - Layout: Flagge + Name VS Flagge + Name + Datum/Uhrzeit + Badge Turnier
  */
 async function loadNationalMatchesForHome() {
@@ -607,7 +581,7 @@ async function renderNextMatches() {
     .map(m => ({ ...m, dateTime: new Date(`${m.date}T${m.time}`) }))
     .filter(m => m.dateTime >= now)
     .sort((a, b) => a.dateTime - b.dateTime)
-    .slice(0, 5);
+    .slice(0, 4);
 
   if (upcoming.length === 0) {
     container.innerHTML = `<div class="notice">Keine kommenden Spiele gefunden.</div>`;
@@ -641,7 +615,7 @@ async function renderNextMatches() {
 }
 
 /* =========================================================
-   NEWS (ECHT via api/news.php) - 3 NEWS, DE, DUPLIKATE WEG
+   NEWS (ECHT via api/news.php) - 4 NEWS, DE, DUPLIKATE WEG
    ========================================================= */
 
 /**
@@ -701,7 +675,7 @@ function filterFootballTournamentNews(items) {
 
 /**
  * renderNews(container, items)
- * - rendert bis zu 4 News in ein Container-Element
+ * - rendert bis zu 5 News in ein Container-Element
  * - jede News zeigt: Titel, Quelle+Datum, Link
  */
 function renderNews(container, items) {
@@ -725,7 +699,7 @@ function renderNews(container, items) {
 /**
  * loadNationalNews()
  * - lädt api/news.php (Google News RSS Aggregation)
- * - filtert auf Turnier-News, deduped und rendert 4 Stück
+ * - filtert auf Turnier-News, deduped und rendert 5 Stück
  * - zeigt Fallback-Text bei Fehler
  */
 async function loadNationalNews() {
@@ -819,6 +793,7 @@ setupTheme();
 // Auth UI + Events aufsetzen
 setupAuthToggle();
 setupLoginFormNavbar();
+setupForgotPasswordForm();
 setupRegisterForm();
 
 // Nav-Status vom Server holen (eingeloggt oder nicht)
@@ -826,14 +801,8 @@ updateNav().then(enforceProtectedPage);
 setupProtectedNavLinks();
 showLoginRequiredNotice();
 
-// Bets-Seite: nur wenn Elemente existieren (#locked, #content)
-(async () => {
-  const ok = await protectBetsPage();
-  if (!ok) return;
-
-  await loadAfconMatches();
-  setupBetForm();
-})();
+// Seiten mit #locked/#content werden erst nach Login sichtbar.
+protectBetsPage();
 
 // Seite-spezifische Widgets beim DOM Ready starten
 document.addEventListener("DOMContentLoaded", () => {

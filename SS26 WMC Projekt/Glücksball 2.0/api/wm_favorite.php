@@ -5,6 +5,7 @@ session_start();
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/auth_guard.php';
 
 function out(array $payload, int $code = 200): void {
   http_response_code($code);
@@ -35,8 +36,10 @@ function wm_meta(PDO $pdo): array {
     SELECT team_name
     FROM (
       SELECT team_home AS team_name FROM spiele WHERE competition = 'WM 2026' AND aktiv = 1
+        AND group_name REGEXP '^Group [A-L]$'
       UNION
       SELECT team_away AS team_name FROM spiele WHERE competition = 'WM 2026' AND aktiv = 1
+        AND group_name REGEXP '^Group [A-L]$'
     ) teams
     WHERE team_name IS NOT NULL AND team_name <> ''
     ORDER BY team_name ASC
@@ -95,9 +98,7 @@ try {
     out(['ok' => false, 'error' => 'Methode nicht erlaubt.'], 405);
   }
 
-  if ($userId <= 0) {
-    out(['ok' => false, 'error' => 'Bitte zuerst einloggen.'], 401);
-  }
+  $userId = require_approved_user($pdo);
 
   if ($meta['locked']) {
     out(['ok' => false, 'error' => 'WM-Favorit ist bereits gesperrt.'], 403);

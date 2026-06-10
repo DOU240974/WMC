@@ -4,7 +4,7 @@ const RANKING_TEAM_NAMES_DE = {
   "Algeria": "Algerien",
   "Argentina": "Argentinien",
   "Australia": "Australien",
-  "Austria": "Österreich",
+  "Austria": "Oesterreich",
   "Belgium": "Belgien",
   "Bosnia and Herzegovina": "Bosnien und Herzegowina",
   "Brazil": "Brasilien",
@@ -12,11 +12,11 @@ const RANKING_TEAM_NAMES_DE = {
   "Cape Verde": "Kap Verde",
   "Colombia": "Kolumbien",
   "Croatia": "Kroatien",
-  "Curacao": "Curaçao",
+  "Curacao": "Curacao",
   "Czech Republic": "Tschechien",
   "DR Congo": "DR Kongo",
   "Ecuador": "Ecuador",
-  "Egypt": "Ägypten",
+  "Egypt": "Aegypten",
   "England": "England",
   "France": "Frankreich",
   "Germany": "Deutschland",
@@ -24,7 +24,7 @@ const RANKING_TEAM_NAMES_DE = {
   "Haiti": "Haiti",
   "Iran": "Iran",
   "Iraq": "Irak",
-  "Ivory Coast": "Elfenbeinküste",
+  "Ivory Coast": "Elfenbeinkueste",
   "Japan": "Japan",
   "Jordan": "Jordanien",
   "Mexico": "Mexiko",
@@ -39,13 +39,13 @@ const RANKING_TEAM_NAMES_DE = {
   "Saudi Arabia": "Saudi-Arabien",
   "Scotland": "Schottland",
   "Senegal": "Senegal",
-  "South Africa": "Südafrika",
-  "South Korea": "Südkorea",
+  "South Africa": "Suedafrika",
+  "South Korea": "Suedkorea",
   "Spain": "Spanien",
   "Sweden": "Schweden",
   "Switzerland": "Schweiz",
   "Tunisia": "Tunesien",
-  "Turkey": "Türkei",
+  "Turkey": "Tuerkei",
   "United States": "USA",
   "Uruguay": "Uruguay",
   "Uzbekistan": "Usbekistan"
@@ -133,6 +133,21 @@ function favoriteTeamHtml(value) {
   `;
 }
 
+function sortRankingRows(rows) {
+  return [...rows].sort((a, b) => {
+    const pointsDiff = Number(b.points ?? 0) - Number(a.points ?? 0);
+    if (pointsDiff !== 0) return pointsDiff;
+
+    const exactDiff = Number(b.exact_tips ?? 0) - Number(a.exact_tips ?? 0);
+    if (exactDiff !== 0) return exactDiff;
+
+    const tipsDiff = Number(a.tips ?? 0) - Number(b.tips ?? 0);
+    if (tipsDiff !== 0) return tipsDiff;
+
+    return String(a.display_name ?? a.username ?? "").localeCompare(String(b.display_name ?? b.username ?? ""), "de");
+  });
+}
+
 function renderRanking(rows) {
   const tbody = document.getElementById("rankingBody");
   if (!tbody) return;
@@ -142,7 +157,7 @@ function renderRanking(rows) {
     return;
   }
 
-  tbody.innerHTML = rows.map((u, i) => {
+  tbody.innerHTML = sortRankingRows(rows).map((u, i) => {
     const name = u.display_name ?? u.username ?? ("User#" + u.user_id);
     const points = Number(u.points ?? 0);
     const tips = Number(u.tips ?? 0);

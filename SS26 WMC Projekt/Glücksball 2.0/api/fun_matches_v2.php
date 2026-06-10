@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 session_start();
 header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/match_seed_v2.php';
 
 function out(array $payload, int $code = 200): void {
   http_response_code($code);
@@ -13,6 +16,8 @@ function out(array $payload, int $code = 200): void {
 }
 
 try {
+  ensure_match_seed($pdo);
+
   $userId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
 
   $stmt = $pdo->prepare("
@@ -30,8 +35,9 @@ try {
     LEFT JOIN tipps t
       ON t.spiel_id = s.id
      AND t.user_id = :uid
-    WHERE s.competition = 'WM 2026'
+    WHERE s.competition = 'Freundschaftsspiel'
       AND s.aktiv = 1
+      AND s.match_id LIKE 'FRI-2026-%'
     ORDER BY s.date ASC, s.id ASC
   ");
   $stmt->execute([':uid' => $userId]);
@@ -44,4 +50,3 @@ try {
 } catch (Throwable $e) {
   out(['ok' => false, 'error' => 'DB error: ' . $e->getMessage()], 500);
 }
-

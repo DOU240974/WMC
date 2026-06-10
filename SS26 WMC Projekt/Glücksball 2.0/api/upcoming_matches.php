@@ -2,8 +2,11 @@
 declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/match_seed_v2.php';
 
 function out(array $payload, int $code = 200): void {
   http_response_code($code);
@@ -12,8 +15,11 @@ function out(array $payload, int $code = 200): void {
 }
 
 try {
+  ensure_match_seed($pdo);
+
   $stmt = $pdo->query("
     SELECT
+      match_id,
       team_home,
       team_away,
       date,
@@ -24,8 +30,12 @@ try {
       AND date IS NOT NULL
       AND date >= NOW()
       AND competition IN ('WM 2026', 'Freundschaftsspiel')
+      AND (
+        match_id LIKE 'WC2026-M%'
+        OR match_id LIKE 'FRI-2026-%'
+      )
     ORDER BY date ASC, id ASC
-    LIMIT 8
+    LIMIT 4
   ");
 
   out([
@@ -35,4 +45,3 @@ try {
 } catch (Throwable $e) {
   out(['ok' => false, 'error' => 'DB error: ' . $e->getMessage()], 500);
 }
-

@@ -5,14 +5,14 @@
   <meta charset="UTF-8" />
   <title>Glücksball Ehrentipps</title>
   <link rel="icon" href="image/Logo.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=9" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
   <header class="header">
-    <h1>GlücksBall 2.0</h1>
-    <p><strong>Wir wetten nicht nur um Geld, sondern um Ruhm, Ehre und Schadenfreude!</strong></p>
+    <h1>GlücksBall</h1>
+    <p><strong>Für Tipps, die mehr zählen als Quote, Glück und gesunder Menschenverstand.</strong></p>
 
     <nav class="nav">
       <a href="index.html">Start</a>
@@ -55,7 +55,7 @@
 
   <main class="page">
     <h1>Ehrentipps</h1>
-    <p class="muted">Alle 72 Gruppenspiele der WM 2026 in den USA, Mexiko und Kanada.</p>
+    <p class="muted">Vorrunde und Finalrunde der WM 2026. Alle Zeiten sind österreichische Zeiten (MESZ).</p>
 
     <div id="authNotice" class="notice" style="display:none;"></div>
     <section class="wm-favorite-card" id="wmFavoriteCard">
@@ -89,10 +89,16 @@
     </section>
     <div id="wmFilters" class="filters"></div>
     <section id="wmMatches" class="cards-grid" aria-live="polite"></section>
+
+    <section id="wmKnockoutSection" style="display:none;">
+      <h2 class="section-title">Finalrunde</h2>
+      <p class="muted">KO-Spiele sind sichtbar, sobald die Mannschaften feststehen.</p>
+      <section id="wmKnockoutMatches" class="knockout-grid" aria-live="polite"></section>
+    </section>
   </main>
 
   <script src="js/app.js?v=2"></script>
-  <script src="js/wm-tipps.js?v=2"></script>
+  <script src="js/wm-tipps.js?v=6"></script>
 </body>
 
 </html>
