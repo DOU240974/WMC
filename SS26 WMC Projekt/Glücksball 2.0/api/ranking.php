@@ -13,6 +13,7 @@ function out(array $payload, int $code = 200): void {
 }
 
 function ensure_favorite_table(PDO $pdo): void {
+  // Speichert den WM-Favoriten pro User und die später automatisch berechneten Bonuspunkte.
   $pdo->exec("
     CREATE TABLE IF NOT EXISTS wm_favorites (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,6 +32,7 @@ function ensure_favorite_table(PDO $pdo): void {
 }
 
 function ensure_wm_result_table(PDO $pdo): void {
+  // Top-Torjäger kann nicht aus den vorhandenen Spieldaten berechnet werden und wird hier nach WM-Ende eingetragen.
   $pdo->exec("
     CREATE TABLE IF NOT EXISTS wm_results (
       id TINYINT PRIMARY KEY DEFAULT 1,
@@ -45,6 +47,7 @@ function normalize_text(string $value): string {
 }
 
 function wm_final_result(PDO $pdo): ?array {
+  // Der Weltmeister wird erst aus dem fertigen Finale gelesen. Vorher gibt diese Funktion null zurück.
   $stmt = $pdo->query("
     SELECT team_home, team_away, score_home, score_away, status
     FROM spiele
@@ -71,6 +74,7 @@ function wm_final_result(PDO $pdo): ?array {
 }
 
 function wm_all_matches_finished(PDO $pdo): bool {
+  // WM-Favorit-Bonuspunkte und Hall of Fame werden erst freigegeben, wenn kein aktives WM-Spiel mehr offen ist.
   $stmt = $pdo->query("
     SELECT COUNT(*) AS open_matches
     FROM spiele
@@ -105,6 +109,8 @@ function wm_actual_top_scorer(PDO $pdo): string {
 }
 
 function refresh_wm_favorite_points(PDO $pdo): array {
+  // Wichtig: Vor WM-Ende werden alle Favorit-Bonuspunkte auf 0 gehalten.
+  // Erst nach dem letzten fertigen Spiel werden Champion, Top-Torjäger und Gesamt-Tore bewertet.
   $complete = wm_all_matches_finished($pdo);
   $final = $complete ? wm_final_result($pdo) : null;
   $champion = (string)($final['champion'] ?? '');
@@ -156,6 +162,12 @@ try {
   $wmFavoriteResult = refresh_wm_favorite_points($pdo);
 
   $sql = "
+    /* Ehren-Ranking:
+       - exakt richtig = 3 Punkte
+       - richtige Tendenz = 1 Punkt
+       - WM-Favorit-Bonus kommt erst nach WM-Ende dazu
+       - Gleichstand: Punkte, exakte Tipps, weniger Tipps, Username
+    */
     SELECT
       u.id AS user_id,
       u.username AS display_name,
@@ -222,6 +234,7 @@ try {
   ";
 
   $stmt = $pdo->query($sql);
+  $rankingRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   $favoritesStmt = $pdo->query("
     SELECT
       u.id AS user_id,
@@ -243,7 +256,8 @@ try {
     'scope' => 'Ehrentipps',
     'competition' => 'WM 2026',
     'wmFavoriteResult' => $wmFavoriteResult,
-    'ranking' => $stmt->fetchAll(PDO::FETCH_ASSOC),
+    'ranking' => $rankingRows,
+    'hall_of_fame' => $wmFavoriteResult['complete'] ? array_slice($rankingRows, 0, 3) : [],
     'favorites' => $favoritesStmt->fetchAll(PDO::FETCH_ASSOC),
   ]);
 } catch (Throwable $e) {

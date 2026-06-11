@@ -173,6 +173,7 @@ function matchNumber(matchId) {
 }
 
 function isPlaceholderTeam(teamName) {
+  // Platzhalter wie "1. Gruppe A" oder "Sieger 101" sollen nicht als echte KO-Teams angezeigt werden.
   const name = String(teamName || "").trim();
   return (
     name === "" ||
@@ -352,6 +353,7 @@ function renderMatches(matches, activeGroup) {
 }
 
 function renderKnockoutMatches(matches) {
+  // Finalrunde wird erst gerendert, wenn beide Teams eines KO-Spiels echte Mannschaftsnamen sind.
   const wrap = document.getElementById("wmKnockoutMatches");
   const section = document.getElementById("wmKnockoutSection");
   if (!wrap) return;

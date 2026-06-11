@@ -28,7 +28,7 @@ if (!hash_equals(ADMIN_PASSWORD, $adminPassword)) {
   out(['ok' => false, 'error' => 'Admin-Passwort falsch'], 403);
 }
 
-if ($id <= 0 || !in_array($action, ['approve', 'reject'], true) || !in_array($source, ['pending', 'user'], true)) {
+if ($id <= 0 || !in_array($action, ['approve', 'reject', 'suspend'], true) || !in_array($source, ['pending', 'user'], true)) {
   out(['ok' => false, 'error' => 'Ungueltige Anfrage'], 400);
 }
 
@@ -48,6 +48,9 @@ try {
 
     if ($action === 'approve') {
       $update = $pdo->prepare('UPDATE users SET is_approved = 1 WHERE id = :id');
+      $update->execute([':id' => $id]);
+    } else if ($action === 'suspend') {
+      $update = $pdo->prepare('UPDATE users SET is_approved = 0 WHERE id = :id');
       $update->execute([':id' => $id]);
     } else {
       $delete = $pdo->prepare('DELETE FROM users WHERE id = :id AND is_approved = 0');

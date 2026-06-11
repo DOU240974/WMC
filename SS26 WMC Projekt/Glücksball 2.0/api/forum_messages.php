@@ -13,6 +13,7 @@ function out(array $payload, int $code = 200): void {
 }
 
 function ensure_forum_table(PDO $pdo): void {
+  // Forum-Nachrichten werden dauerhaft gespeichert, damit der Chat nicht nur im Browser existiert.
   $pdo->exec("
     CREATE TABLE IF NOT EXISTS forum_messages (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -24,6 +25,8 @@ function ensure_forum_table(PDO $pdo): void {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
   ");
 
+  // Pro User und Nachricht ist nur eine Reaktion erlaubt.
+  // UNIQUE(message_id, user_id) sorgt dafür, dass Like/Dislike gewechselt statt doppelt gezählt wird.
   $pdo->exec("
     CREATE TABLE IF NOT EXISTS forum_reactions (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,6 +47,7 @@ try {
 
   if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $userId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
+    // Liefert Nachrichten inklusive Zähler und eigener Reaktion des aktuell eingeloggten Users.
     $stmt = $pdo->prepare("
       SELECT
         m.id,
@@ -85,6 +89,7 @@ try {
   }
 
   if (isset($data['reaction'], $data['message_id'])) {
+    // Like/Dislike: gleiche Reaktion erneut klicken entfernt die Stimme, andere Reaktion ersetzt sie.
     $messageId = (int)$data['message_id'];
     $reaction = (string)$data['reaction'];
 

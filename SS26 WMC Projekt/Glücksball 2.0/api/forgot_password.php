@@ -57,6 +57,7 @@ function log_reset_link(string $email, string $username, string $link): void {
   file_put_contents($logFile, $line, FILE_APPEND | LOCK_EX);
 }
 
+// Auf XAMPP klappt PHP mail() meist nicht. Auf der Domain hängt es vom Mailserver des Hosters ab.
 function send_reset_mail(string $to, string $username, string $link): bool {
   $subject = 'GlücksBall - Passwort zurücksetzen';
   $host = preg_replace('/:\d+$/', '', (string)($_SERVER['HTTP_HOST'] ?? 'localhost'));

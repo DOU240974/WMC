@@ -1,4 +1,4 @@
-﻿const FUN_FLAGS = {
+const FUN_FLAGS = {
   "Ägypten": "eg",
   "Algerien": "dz",
   "Afghanistan": "af",
@@ -145,7 +145,7 @@ function renderFunMatches(matches) {
         </div>
       </article>
     `;
-  }).join("") || `<div class="notice">Keine Spaßtipps gefunden.</div>`;
+  }).join("") || `<div class="notice fun-empty-notice">Spaßtipps wegen laufender Meisterschaft inaktiv.</div>`;
 }
 
 function startFunCardExpiryWatcher() {

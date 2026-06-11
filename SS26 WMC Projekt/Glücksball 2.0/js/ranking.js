@@ -205,6 +205,45 @@ function renderFavorites(rows) {
   }).join("");
 }
 
+function renderHallOfFame(rows, isComplete) {
+  // Hall of Fame bleibt vor WM-Ende komplett unsichtbar.
+  // Erst wenn die API complete=true liefert, werden die Top 3 angezeigt.
+  const section = document.getElementById("hallOfFameSection");
+  const box = document.getElementById("hallOfFame");
+  if (!box) return;
+
+  if (!isComplete) {
+    if (section) section.style.display = "none";
+    box.innerHTML = "";
+    return;
+  }
+
+  if (section) section.style.display = "block";
+
+  if (!rows || rows.length === 0) {
+    box.innerHTML = `<p class="muted">Noch keine Ranking-Daten vorhanden.</p>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <div class="hall-of-fame-grid">
+      ${rows.slice(0, 3).map((row, index) => {
+        const name = row.display_name ?? row.username ?? ("User#" + row.user_id);
+        const points = Number(row.points ?? 0);
+        const tips = Number(row.tips ?? 0);
+        return `
+          <article class="hall-card hall-rank-${index + 1}">
+            <div class="hall-place">${index + 1}</div>
+            <h3>${escapeHtml(name)}</h3>
+            <p><strong>${points}</strong> Punkte</p>
+            <span>${tips} Tipps</span>
+          </article>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
 async function loadRanking() {
   const rankingBody = document.getElementById("rankingBody");
   const favoriteBody = document.getElementById("favoriteRankingBody");
@@ -231,9 +270,11 @@ async function loadRanking() {
 
     renderRanking(data.ranking);
     renderFavorites(data.favorites || []);
+    renderHallOfFame(data.hall_of_fame || [], Boolean(data.wmFavoriteResult?.complete));
   } catch (err) {
     console.error("Ranking Fehler:", err);
     if (rankingBody) rankingBody.innerHTML = `<tr><td colspan="5">Ranking konnte nicht geladen werden.</td></tr>`;
     if (favoriteBody) favoriteBody.innerHTML = `<tr><td colspan="5">WM-Favoriten konnten nicht geladen werden.</td></tr>`;
+    renderHallOfFame([], false);
   }
 }

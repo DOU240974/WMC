@@ -797,6 +797,13 @@ input:focus, select:focus{
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
 }
+.fun-empty-notice{
+  grid-column: 1 / -1;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  white-space: nowrap;
+}
 
 .admin-page{
   display: grid;
@@ -1492,7 +1499,7 @@ input:focus, select:focus{
 
 .forum-page,
 .rules-page{
-  max-width: 980px;
+  max-width: 1400px;
 }
 
 .forum-shell{
@@ -2585,6 +2592,67 @@ select,
   text-decoration: underline;
 }
 
+.hall-of-fame{
+  margin-top: 10px;
+}
+
+.hall-of-fame-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.hall-card{
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  background: var(--surface-soft);
+}
+
+.hall-place{
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: #13a35b;
+  color: #ffffff;
+  font-weight: 950;
+}
+
+.hall-rank-1{
+  border-left-color: #f1d36d;
+}
+
+.hall-rank-1 .hall-place{
+  background: #b8860b;
+}
+
+.hall-rank-2 .hall-place{
+  background: #687386;
+}
+
+.hall-rank-3 .hall-place{
+  background: #9a5a2e;
+}
+
+.btn-danger{
+  background: #b42323;
+  color: #ffffff;
+}
+
+.btn-danger:hover{
+  background: #d33131;
+}
+
+@media (max-width: 720px){
+  .hall-of-fame-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (min-width: 1025px){
   .layout.threecol{
     align-items: stretch;
@@ -2592,5 +2660,663 @@ select,
 
   .layout.threecol > .card{
     height: 100%;
+  }
+}
+
+/* =========================================================
+   22) MOBILE BEDIENUNG
+   Nur <= 600px: Desktop bleibt unverändert.
+   Ziel: größere Touch-Ziele, übersichtlichere Navbar,
+   weniger horizontales Rutschen und bequemere Formulare.
+   ========================================================= */
+@media (max-width: 600px){
+  body{
+    font-size: 15px;
+  }
+
+  .header{
+    position: static;
+  }
+
+  .header h1{
+    font-size: 1.6rem;
+    padding: .75rem .85rem .15rem;
+  }
+
+  .header p{
+    padding: .1rem .85rem .65rem;
+    font-size: .86rem;
+    line-height: 1.35;
+  }
+
+  .nav{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: .75rem;
+    align-items: stretch;
+  }
+
+  .nav a,
+  .nav .btn,
+  .auth-status{
+    width: 100%;
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .65rem .55rem;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.15;
+  }
+
+  .auth-area{
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  #authGuest,
+  #authUser{
+    width: 100%;
+  }
+
+  #authUser{
+    display: none;
+  }
+
+  #authUser[style*="inline"],
+  #authUser[style*="block"]{
+    display: block !important;
+  }
+
+  #themeToggle{
+    grid-column: 1 / -1;
+  }
+
+  .auth-box{
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: 92px;
+    width: auto;
+    max-height: calc(100vh - 120px);
+    overflow: auto;
+  }
+
+  .layout,
+  .page{
+    width: 100%;
+    padding: 12px;
+  }
+
+  .layout.onecol{
+    justify-items: stretch;
+  }
+
+  .card,
+  .forum-shell,
+  .rules-block,
+  .wm-favorite-card,
+  .football-news-card,
+  .ko-card,
+  .pending-user{
+    padding: 14px;
+  }
+
+  h1{
+    font-size: 1.75rem;
+  }
+
+  h2{
+    font-size: 1.35rem;
+  }
+
+  input,
+  select,
+  textarea,
+  .score-input,
+  .btn{
+    width: 100%;
+    min-height: 46px;
+    font-size: 16px;
+  }
+
+  #registerForm.form,
+  .reset-form,
+  #adminLoginForm{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .filters{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .chip{
+    min-height: 42px;
+    padding: .6rem .5rem;
+    text-align: center;
+  }
+
+  .cards,
+  .cards-grid,
+  .knockout-stage-grid,
+  .rules-grid,
+  .football-news-grid,
+  .hall-of-fame-grid{
+    grid-template-columns: 1fr;
+    width: 100%;
+    padding: 0;
+  }
+
+  .teams-line,
+  .knockout-teams{
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .teams-line .vs,
+  .knockout-teams .vs{
+    width: max-content;
+    margin: 0 auto;
+  }
+
+  .tip-row{
+    grid-template-columns: 1fr auto 1fr;
+    gap: 8px;
+  }
+
+  .card-actions,
+  .wm-favorite-actions,
+  .pending-user .actions,
+  .forum-toolbar,
+  .forum-form{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .forum-messages{
+    max-height: 58vh;
+  }
+
+  .forum-message-head{
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .forum-reactions{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .table{
+    min-width: 620px;
+  }
+
+  .page > .card[style*="overflow:auto"],
+  .card[style*="overflow:auto"]{
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .rules-meme{
+    margin-top: 20px;
+    padding: 6px;
+  }
+
+  .rules-meme img{
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .footer{
+    padding: .9rem .75rem;
+    font-size: .9rem;
+  }
+}
+
+/* =========================================================
+   23) MOBILE FEINSCHLIFF
+   Nur Handy: angenehmer, ruhiger, gleiche Desktop-Optik bleibt.
+   ========================================================= */
+@media (max-width: 600px){
+  .header{
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .header h1{
+    font-size: 1.45rem;
+    line-height: 1.05;
+  }
+
+  .header p{
+    max-width: 34ch;
+    margin: 0 auto;
+  }
+
+  .nav{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 430px;
+    margin: 0 auto;
+    border-top-color: rgba(255,255,255,.10);
+  }
+
+  .nav a,
+  .nav .btn,
+  .auth-status{
+    min-height: 42px;
+    border-radius: 6px;
+    font-size: .86rem;
+    font-weight: 900;
+  }
+
+  .nav a.active{
+    box-shadow: inset 0 0 0 1px rgba(24,185,111,.28);
+  }
+
+  .auth-area{
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .auth-name,
+  #navUsername{
+    max-width: none;
+  }
+
+  .auth-box{
+    top: 76px;
+    padding: 14px;
+  }
+
+  .layout,
+  .page{
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 12px;
+  }
+
+  .layout.threecol{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .layout.threecol > .card:nth-child(2){
+    order: 1;
+  }
+
+  .layout.threecol > .card:nth-child(3){
+    order: 2;
+  }
+
+  .layout.threecol > .card:nth-child(1){
+    order: 3;
+  }
+
+  .card,
+  .forum-shell,
+  .rules-block,
+  .wm-favorite-card,
+  .football-news-card,
+  .ko-card,
+  .pending-user,
+  .mini-card{
+    border-radius: 7px;
+    padding: 14px;
+    box-shadow: 0 10px 24px rgba(0,0,0,.28);
+  }
+
+  .card h2:first-child,
+  .layout.threecol > .card h2:first-child{
+    font-size: 1.35rem;
+    align-items: center;
+  }
+
+  .page > h1{
+    margin-top: 6px;
+    font-size: 1.8rem;
+  }
+
+  .page > .muted{
+    font-size: .95rem;
+    line-height: 1.35;
+  }
+
+  #registerForm.form,
+  .reset-form,
+  #adminLoginForm,
+  .wm-favorite-grid{
+    gap: 9px;
+  }
+
+  input,
+  select,
+  textarea{
+    border-radius: 6px;
+    padding: 12px;
+  }
+
+  .btn{
+    border-radius: 6px;
+  }
+
+  #nationalNews,
+  #upcomingMatches{
+    gap: 10px;
+  }
+
+  .news-item h3{
+    font-size: .98rem;
+  }
+
+  #upcomingMatches .mini-card{
+    padding: 12px;
+  }
+
+  .filters{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .forum-message,
+  .pending-user{
+    padding: 12px;
+  }
+
+  .table th,
+  .table td{
+    padding: 10px 12px;
+  }
+
+  .rules-block-warning h2{
+    font-size: 1.45rem;
+  }
+
+  .rules-block-warning p{
+    font-size: 1rem;
+  }
+}
+/* =========================================================
+   24) LIGHTMODE FUSSBALLFELD
+   Umgekehrt: gedämpftes Grün als Fläche, helle Karten/Texte.
+   ========================================================= */
+[data-theme="light"],
+body[data-theme="light"]{
+  --bg:#143322;
+  --text:#f4fbf4;
+  --muted:#c4d5c7;
+  --surface: rgba(24, 58, 38, .94);
+  --surface-strong:#1c432c;
+  --surface-soft: rgba(255,255,255,.075);
+  --border: rgba(222,239,223,.18);
+  --accent:#dfeedd;
+  --accent-text:#143322;
+  --accent-2:#76a66d;
+  --pitch:#1b482e;
+  --pitch-dark:#123120;
+  --line:rgba(236,248,235,.13);
+  --stadium:#183b28;
+  --shadow: 0 16px 34px rgba(9, 25, 15, .24);
+  --gold-soft: rgba(223,238,221,.10);
+  --green-soft: rgba(255,255,255,.08);
+  --steel: rgba(222,239,223,.18);
+}
+
+[data-theme="light"] body,
+body[data-theme="light"]{
+  background:
+    linear-gradient(180deg, rgba(13,34,22,.68), rgba(20,51,34,.92)),
+    radial-gradient(900px 320px at 50% -90px, rgba(223,238,221,.16), transparent 65%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.035) 0,
+      rgba(255,255,255,.035) 74px,
+      rgba(0,0,0,.055) 74px,
+      rgba(0,0,0,.055) 148px
+    ),
+    var(--bg);
+}
+
+[data-theme="light"] .header,
+body[data-theme="light"] .header,
+[data-theme="light"] .footer,
+body[data-theme="light"] .footer{
+  background: #183b28;
+  border-color: rgba(223,238,221,.18);
+  box-shadow: 0 8px 24px rgba(8,22,14,.22);
+}
+
+[data-theme="light"] .header h1,
+body[data-theme="light"] .header h1,
+[data-theme="light"] .nav a,
+body[data-theme="light"] .nav a{
+  color: #f4fbf4;
+}
+
+[data-theme="light"] .header p,
+body[data-theme="light"] .header p,
+[data-theme="light"] .muted,
+body[data-theme="light"] .muted{
+  color: #c4d5c7;
+}
+
+[data-theme="light"] .nav,
+body[data-theme="light"] .nav{
+  border-top-color: rgba(223,238,221,.12);
+}
+
+[data-theme="light"] .nav a:hover,
+[data-theme="light"] .nav a.active,
+body[data-theme="light"] .nav a:hover,
+body[data-theme="light"] .nav a.active{
+  color: #143322;
+  background: #dfeedd;
+  border-color: rgba(223,238,221,.42);
+}
+
+[data-theme="light"] .card,
+[data-theme="light"] .forum-shell,
+[data-theme="light"] .rules-block,
+[data-theme="light"] .wm-favorite-card,
+[data-theme="light"] .football-news-card,
+[data-theme="light"] .ko-card,
+[data-theme="light"] .pending-user,
+[data-theme="light"] .group-card,
+[data-theme="light"] .ko-card-view,
+body[data-theme="light"] .card,
+body[data-theme="light"] .forum-shell,
+body[data-theme="light"] .rules-block,
+body[data-theme="light"] .wm-favorite-card,
+body[data-theme="light"] .football-news-card,
+body[data-theme="light"] .ko-card,
+body[data-theme="light"] .pending-user,
+body[data-theme="light"] .group-card,
+body[data-theme="light"] .ko-card-view{
+  background: rgba(28,67,44,.94);
+  border-color: rgba(223,238,221,.18);
+  box-shadow: 0 14px 28px rgba(8,22,14,.22);
+}
+
+[data-theme="light"] .card::before,
+[data-theme="light"] .rules-block::before,
+[data-theme="light"] .wm-favorite-card::before,
+body[data-theme="light"] .card::before,
+body[data-theme="light"] .rules-block::before,
+body[data-theme="light"] .wm-favorite-card::before{
+  background: linear-gradient(90deg, #dfeedd, #76a66d);
+}
+
+[data-theme="light"] .btn,
+body[data-theme="light"] .btn{
+  background: #dfeedd;
+  color: #143322;
+}
+
+[data-theme="light"] .btn:hover,
+body[data-theme="light"] .btn:hover{
+  background: #eef8ec;
+}
+
+[data-theme="light"] .btn-ghost,
+body[data-theme="light"] .btn-ghost,
+[data-theme="light"] .auth-status,
+body[data-theme="light"] .auth-status{
+  color: #f4fbf4;
+  background: rgba(255,255,255,.055);
+  border-color: rgba(223,238,221,.20);
+}
+
+[data-theme="light"] .btn-ghost:hover,
+body[data-theme="light"] .btn-ghost:hover{
+  color: #143322;
+  background: #dfeedd;
+}
+
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea,
+[data-theme="light"] .score-input,
+body[data-theme="light"] input,
+body[data-theme="light"] select,
+body[data-theme="light"] textarea,
+body[data-theme="light"] .score-input{
+  background: rgba(255,255,255,.92);
+  color: #143322;
+  border-color: rgba(223,238,221,.24);
+}
+
+[data-theme="light"] input::placeholder,
+body[data-theme="light"] input::placeholder{
+  color: #617866;
+}
+
+[data-theme="light"] .news-item,
+[data-theme="light"] #upcomingMatches .mini-card,
+[data-theme="light"] .forum-messages,
+[data-theme="light"] .teams-line,
+body[data-theme="light"] .news-item,
+body[data-theme="light"] #upcomingMatches .mini-card,
+body[data-theme="light"] .forum-messages,
+body[data-theme="light"] .teams-line{
+  background: rgba(255,255,255,.075);
+  border-color: rgba(223,238,221,.18);
+}
+
+[data-theme="light"] #upcomingMatches .vs,
+body[data-theme="light"] #upcomingMatches .vs{
+  color: #f4fbf4;
+  background: rgba(255,255,255,.10);
+}
+
+[data-theme="light"] #upcomingMatches .badge,
+body[data-theme="light"] #upcomingMatches .badge,
+[data-theme="light"] .news-link,
+body[data-theme="light"] .news-link{
+  color: #143322;
+  background: #dfeedd;
+  border-color: rgba(223,238,221,.45);
+}
+
+[data-theme="light"] .table tbody tr:hover,
+body[data-theme="light"] .table tbody tr:hover{
+  background: rgba(255,255,255,.08);
+}
+/* =========================================================
+   25) FORUM ADS / NEWS BREITER
+   Werbung aus News raus, beim Forum kleiner anzeigen.
+   ========================================================= */
+.football-news-page{
+  max-width: 1400px;
+}
+
+.forum-page{
+  max-width: 920px;
+}
+
+.news-ad{
+  top: 260px;
+  width: 220px;
+  min-height: 540px;
+}
+
+.news-ad img{
+  min-height: 540px;
+}
+
+.forum-ad-left,
+.news-ad-left{
+  left: 44px;
+}
+
+.forum-ad-right,
+.news-ad-right{
+  right: 44px;
+}
+
+@media (max-width: 1500px){
+  .news-ad{
+    display: none;
+  }
+}
+/* =========================================================
+   26) FORUM ADS RESPONSIVE
+   Bilder bei 100% Zoom sichtbar und sauber in den Seitenraum.
+   ========================================================= */
+.forum-page{
+  max-width: 920px;
+}
+
+.forum-ad{
+  display: block;
+  position: fixed;
+  top: 255px;
+  width: clamp(170px, calc((100vw - 980px) / 2 - 46px), 260px);
+  height: min(660px, calc(100vh - 285px));
+  min-height: 440px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(255,255,255,.30);
+  border-radius: 10px;
+  box-shadow: 0 16px 36px rgba(0,0,0,.34);
+  overflow: hidden;
+}
+
+.forum-ad-left{
+  left: max(18px, calc((100vw - 920px) / 2 - clamp(170px, calc((100vw - 980px) / 2 - 46px), 260px) - 34px));
+}
+
+.forum-ad-right{
+  right: max(18px, calc((100vw - 920px) / 2 - clamp(170px, calc((100vw - 980px) / 2 - 46px), 260px) - 34px));
+}
+
+.forum-ad a,
+.forum-ad img{
+  width: 100%;
+  height: 100%;
+}
+
+.forum-ad img{
+  min-height: 0;
+  object-fit: contain;
+  object-position: center top;
+  border: 0;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+@media (max-width: 1320px), (max-height: 720px){
+  .forum-ad{
+    display: none;
   }
 }

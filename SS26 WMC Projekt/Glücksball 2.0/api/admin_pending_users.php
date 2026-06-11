@@ -31,4 +31,16 @@ $stmt = $pdo->query("
   ORDER BY created_at ASC
 ");
 
-out(['ok' => true, 'users' => $stmt->fetchAll()]);
+$activeStmt = $pdo->query("
+  SELECT id, username, email, created_at
+  FROM users
+  WHERE is_approved = 1
+    AND LOWER(username) <> 'admin'
+  ORDER BY username ASC
+");
+
+out([
+  'ok' => true,
+  'users' => $stmt->fetchAll(),
+  'active_users' => $activeStmt->fetchAll(),
+]);
