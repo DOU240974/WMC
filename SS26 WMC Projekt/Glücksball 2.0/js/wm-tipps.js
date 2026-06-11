@@ -205,51 +205,6 @@ function visibleVenue(value) {
   return /^tbd$/i.test(venue) ? "" : venue;
 }
 
-async function loadWmFavorite() {
-  const card = document.getElementById("wmFavoriteCard");
-  if (!card) return;
-
-  const status = document.getElementById("wmFavoriteStatus");
-  const hint = document.getElementById("wmFavoriteHint");
-  const teamSelect = document.getElementById("wmChampionTeam");
-  const scorerInput = document.getElementById("wmTopScorer");
-  const goalsInput = document.getElementById("wmTotalGoals");
-  const saveButton = document.getElementById("wmFavoriteSave");
-
-  try {
-    const data = await wmApi("wm_favorite.php");
-    const teams = data.teams || [];
-    const favorite = data.favorite || null;
-
-    if (teamSelect) {
-      teamSelect.innerHTML = `<option value="">Land auswählen</option>` + teams.map(team => `
-        <option value="${escapeHtml(team)}">${escapeHtml(team)}</option>
-      `).join("");
-      if (favorite?.champion_team) teamSelect.value = favorite.champion_team;
-    }
-
-    if (scorerInput && favorite?.top_scorer) scorerInput.value = favorite.top_scorer;
-    if (goalsInput && favorite?.total_goals !== undefined && favorite?.total_goals !== null) {
-      goalsInput.value = favorite.total_goals;
-    }
-
-    if (status) status.textContent = data.locked ? "Gesperrt" : "Bis erstes WM-Spiel";
-    if (hint) {
-      hint.textContent = data.locked
-        ? `Gesperrt seit Beginn des ersten WM-Spiels (${formatDeadline(data.deadline)}). Je Kategorie gibt es 25 Punkte.`
-        : `WM-Favorit bis zum ersten WM-Spiel (${formatDeadline(data.deadline)}). Je Kategorie gibt es 25 Punkte.`;
-    }
-
-    setFavoriteDisabled(Boolean(data.locked));
-    if (saveButton && !data.loggedIn) saveButton.disabled = true;
-    if (hint && !data.loggedIn) hint.textContent = "Zum Speichern bitte oben einloggen. Je Kategorie gibt es 25 Punkte.";
-  } catch (err) {
-    if (hint) hint.textContent = err.message;
-    if (status) status.textContent = "Fehler";
-    setFavoriteDisabled(true);
-  }
-}
-
 async function saveWmFavorite() {
   const teamSelect = document.getElementById("wmChampionTeam");
   const scorerInput = document.getElementById("wmTopScorer");
@@ -342,7 +297,7 @@ function renderMatches(matches, activeGroup) {
         </div>
 
         <div class="card-actions">
-          <div class="small">${escapeHtml(match.match_id)}${visibleVenue(match.venue) ? " · " + escapeHtml(visibleVenue(match.venue)) : ""}</div>
+          <div class="small">${visibleVenue(match.venue) ? escapeHtml(visibleVenue(match.venue)) : ""}</div>
           <button class="btn" type="button" data-save="${escapeHtml(match.id)}" ${locked ? "disabled" : ""}>
             ${hasTip ? "Tipp ändern" : "Tipp speichern"}
           </button>
@@ -391,7 +346,7 @@ function renderKnockoutCard(match) {
   return `
     <article class="ko-card knockout-card ${hasTip ? "is-tipped" : ""} ${locked ? "is-locked" : ""}" data-spiel-id="${escapeHtml(match.id)}" data-kickoff="${escapeHtml(kickoffMs)}">
       <div class="ko-head">
-        <div class="ko-stage">${escapeHtml(match.match_id)} <span class="lock-badge">${escapeHtml(badgeText)}</span></div>
+        <div class="ko-stage">${escapeHtml(match.group_name)} <span class="lock-badge">${escapeHtml(badgeText)}</span></div>
         <div class="ko-meta">${escapeHtml(formatMatchDate(match.date))}</div>
       </div>
 
@@ -544,4 +499,6 @@ async function initWmTipps() {
 }
 
 document.addEventListener("DOMContentLoaded", initWmTipps);
+
+
 

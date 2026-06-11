@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8" />
 
   <!-- Seitentitel -->
-  <title>GlücksBall – Meine Statistik</title>
+  <title>GlücksBall - Meine Statistik</title>
 
   <!-- Favicon -->
   <link rel="icon" href="image/Logo.png" type="image/png">
 
   <!-- Zentrales Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=22">
+  <link rel="stylesheet" href="css/style.css?v=55">
 
   <!-- Responsive Layout -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,180 +19,163 @@
 
 <body>
 
-<!-- =====================================================
+  <!-- =====================================================
      HEADER + NAVIGATION
      ===================================================== -->
-<header class="header">
-  <h1>GlücksBall</h1>
-  <p><strong>Deine Zahlen, deine Bilanz, dein Ruhm – oder dein digitales Mahnmal.</strong></p>
+  <header class="header">
+    <h1>GlücksBall</h1>
+    <p><strong>Deine Zahlen, deine Bilanz, dein Ruhm - oder dein digitales Mahnmal.</strong></p>
 
-  <nav class="nav">
+    <nav class="nav">
       <a href="index.html">Start</a>
-      <a href="fussballmeisterschaften.html">Meisterschaften</a>
       <a href="tipps.html">Ehrentipps</a>
-      <a href="spasstipp.html">Spaßtipps</a>
       <a href="ranking.html">Ranking</a>
-      <a href="fussball-news.html">News</a>
-      <a href="forum.html">Forum</a>
-      <a href="regeln.html">Regeln</a>
 
-      
-    <div class="auth-area" id="authArea">
 
-      <!-- LED + Username -->
-      <div class="auth-status" id="authStatus">
-        <span class="led" id="loginLed" aria-label="Login Status"></span>
-        <span class="auth-name" id="navUsername">Gast</span>
-      </div>
+      <div class="auth-area" id="authArea">
 
-      <!-- Gast-Ansicht -->
-      <div id="authGuest">
-        <button id="authToggle" class="btn btn-ghost" type="button">
-          Login
-        </button>
+        <!-- LED + Username -->
+        <div class="auth-status" id="authStatus">
+          <span class="led" id="loginLed" aria-label="Login Status"></span>
+          <span class="auth-name" id="navUsername"></span>
+        </div>
 
-        <!-- Login Dropdown -->
-        <div class="auth-box" id="authBox">
-          <form id="loginForm">
-            <h3>Login</h3>
-            <input type="text" id="loginName" placeholder="Benutzername" required>
-            <input type="password" id="loginPass" placeholder="Passwort" required>
-            <button class="btn" type="submit">Login</button>
-          </form>
+        <!-- Login-Ansicht -->
+        <div id="authGuest">
+          <button id="authToggle" class="btn btn-ghost" type="button">
+            Login
+          </button>
+
+          <!-- Login Dropdown -->
+          <div class="auth-box" id="authBox">
+            <form id="loginForm">
+              <h3>Login</h3>
+              <input type="text" id="loginName" placeholder="Benutzername oder E-Mail" required>
+              <input type="password" id="loginPass" placeholder="Passwort" required>
+              <button class="btn" type="submit">Login</button>
+            </form>
+          </div>
         </div>
       </div>
 
-      <!-- User-Ansicht (wird per JS gesteuert) -->
-      <div id="authUser" style="display:none;">
-        <button id="logoutBtn" class="btn btn-ghost" type="button">
-          Logout
-        </button>
-      </div>
-    </div>
-
-    <!-- Theme Toggle -->
-    <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
-  </nav>
-</header>
-
-<!-- =====================================================
-     MAIN CONTENT
-     ===================================================== -->
-<main class="page">
-
-  <h1>Meine Statistik</h1>
-  <p class="muted">
-    Übersicht über deine Ehrentipps, Spaßtipps, Trefferquote und Punkte.
-  </p>
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
+    </nav>
+  </header>
 
   <!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
+  <main class="page">
+
+    <h1>Meine Statistik</h1>
+    <p class="muted">
+      Übersicht über deine Ehrentipps, Spaßtipps, Trefferquote und Punkte.
+    </p>
+
+    <!-- =====================================================
        LOCKED VIEW (nicht eingeloggt)
        Wird von statistik.js gesteuert
        ===================================================== -->
-  <div id="locked" class="notice" style="display:none;">
-    Du musst eingeloggt sein, um deine Statistik zu sehen.
-  </div>
+    <div id="locked" class="notice" style="display:none;">
+      Du musst eingeloggt sein, um deine Statistik zu sehen.
+    </div>
 
-  <!-- =====================================================
+    <!-- =====================================================
        CONTENT (nur sichtbar wenn eingeloggt)
        ===================================================== -->
-  <div id="content" style="display:none;">
+    <div id="content" style="display:none;">
 
-    <!-- =========================
+      <!-- =========================
          PROFILINFOS
          ========================= -->
-    <section class="card">
-      <h2>Profil</h2>
+      <section class="card">
+        <h2>Profil</h2>
 
-      <!-- Wird per JS gefüllt -->
-      <div id="profileBox">
-        <!-- Username / Email / User-ID -->
-      </div>
-    </section>
+        <!-- Wird per JS gefüllt -->
+        <div id="profileBox">
+          <!-- Username / Email / User-ID -->
+        </div>
+      </section>
 
-    <!-- =========================
+      <!-- =========================
          ZUSAMMENFASSUNG
          ========================= -->
-    <section class="card">
-      <h2>Übersicht</h2>
+      <section class="card">
+        <h2>Übersicht</h2>
 
-      <!-- Kurzstatistik (Tipps, Treffer, Punkte) -->
-      <p id="statsBox" class="muted">
-        Lade Statistik…
-      </p>
-    </section>
+        <!-- Kurzstatistik (Tipps, Treffer, Punkte) -->
+        <p id="statsBox" class="muted">
+          Lade Statistik...
+        </p>
+      </section>
 
-    <!-- =========================
+      <!-- =========================
          DETAIL-TABELLE EHRENTIPPS
          ========================= -->
-    <section class="card" style="overflow:auto;">
-      <h2>Meine Ehrentipps</h2>
+      <section class="card" style="overflow:auto;">
+        <h2>Meine Ehrentipps</h2>
 
-      <table id="honorStatsTable" class="table">
-        <thead>
-          <tr>
-            <th>Datum</th>
-            <th>Spiel</th>
-            <th>Tipp</th>
-            <th>Ergebnis</th>
-            <th>Punkte</th>
-          </tr>
-        </thead>
+        <table id="honorStatsTable" class="table">
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Spiel</th>
+              <th>Tipp</th>
+              <th>Ergebnis</th>
+              <th>Punkte</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <!-- Wird komplett von statistik.js gerendert -->
-        </tbody>
-      </table>
-    </section>
+          <tbody>
+            <!-- Wird komplett von statistik.js gerendert -->
+          </tbody>
+        </table>
+      </section>
 
-    <!-- =========================
+      <!-- =========================
          DETAIL-TABELLE SPASSTIPPS
          ========================= -->
-    <section class="card" style="overflow:auto;">
-      <h2>Meine Spaßtipps</h2>
+      <section class="card" style="overflow:auto;">
+        <h2>Meine Spaßtipps</h2>
 
-      <table id="funStatsTable" class="table">
-        <thead>
-          <tr>
-            <th>Datum</th>
-            <th>Spiel</th>
-            <th>Tipp</th>
-            <th>Ergebnis</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+        <table id="funStatsTable" class="table">
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Spiel</th>
+              <th>Tipp</th>
+              <th>Ergebnis</th>
+              <th>Status</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <!-- Wird komplett von statistik.js gerendert -->
-        </tbody>
-      </table>
-    </section>
+          <tbody>
+            <!-- Wird komplett von statistik.js gerendert -->
+          </tbody>
+        </table>
+      </section>
 
-  </div>
-</main>
+    </div>
+  </main>
 
-<!-- =====================================================
+  <!-- =====================================================
      FOOTER
      ===================================================== -->
-<footer class="footer">
-  <p>© 2026 GlücksBall – Statistik</p>
-</footer>
+  <footer class="footer">
+    <p>© 2026 GlücksBall - Statistik</p>
+  </footer>
 
-<!-- =====================================================
+  <!-- =====================================================
      SCRIPTS
      Reihenfolge ist WICHTIG
      ===================================================== -->
-<script src="js/app.js"></script>
-<script src="js/statistik.js?v=10"></script>
+  <script src="js/app.js?v=55"></script>
+  <script src="js/statistik.js?v=55"></script>
 
 </body>
+
 </html>
-
-
-
-
-
-
 
 
 

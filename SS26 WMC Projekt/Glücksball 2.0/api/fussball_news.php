@@ -68,7 +68,7 @@ function normalize_news_title(string $title): string {
 
 function is_football_item(string $title): bool {
   $titleLower = mb_strtolower($title, 'UTF-8');
-  $football = preg_match('/fußball|fussball|soccer|football|fifa|uefa|caf|afcon|afrika-cup|wm-qualifikation|europameisterschaft|nations league|copa am[eé]rica/i', $titleLower);
+  $football = preg_match('/fussball|soccer|football|fifa|uefa|caf|afcon|afrika-cup|wm-qualifikation|europameisterschaft|nations league|copa america/i', $titleLower);
   $blocked = preg_match('/eishockey|hockey|handball|basketball|volleyball|tennis|ski|formel|motorsport/i', $titleLower);
   return (bool)$football && !$blocked;
 }
@@ -154,7 +154,7 @@ function fetch_sportmonks_fixture_news(int $limit = 8): array {
       $summary = trim(implode(' ', array_slice($lineTexts, 0, 3)));
       $title = trim((string)($news['title'] ?? $news['headline'] ?? ''));
       if ($title === '') $title = $summary !== '' ? mb_substr($summary, 0, 90, 'UTF-8') : $matchName;
-      if (!preg_match('/fußball|fussball|football|soccer/i', $title)) $title = 'Fußball: ' . $title;
+      if (!preg_match('/fussball|football|soccer/i', $title)) $title = 'Fussball: ' . $title;
 
       $items[] = normalize_item([
         'title' => $title,
@@ -177,7 +177,7 @@ function fetch_newsapi_ai(int $limit = 26): array {
 
   $params = [
     'resultType' => 'articles',
-    'keyword' => 'Fußball OR Fussball OR FIFA OR UEFA OR AFCON OR WM-Qualifikation OR Nationalmannschaft',
+    'keyword' => 'Fussball OR FIFA OR UEFA OR AFCON OR WM-Qualifikation OR Nationalmannschaft',
     'keywordOper' => 'or',
     'lang' => 'deu',
     'articlesSortBy' => 'date',
@@ -237,7 +237,7 @@ function fetch_google_news_section(string $query, string $sourceName, int $limit
 function official_links(): array {
   return [
     [
-      'title' => 'FIFA - Offizielle Fußball-News',
+      'title' => 'FIFA - Offizielle Fussball-News',
       'link' => 'https://www.fifa.com/de/news',
       'date' => '',
       'source' => 'Offizieller Link',
@@ -268,12 +268,12 @@ try {
   $sportmonksNews = fetch_sportmonks_fixture_news(8);
   $news = array_slice(array_merge($sportmonksNews, $apiItems), 0, 14);
   if (count($news) === 0) {
-    $news = fetch_google_news_section('Fußball Nationalmannschaft FIFA UEFA AFCON WM Qualifikation', 'Nachrichten', 12);
+    $news = fetch_google_news_section('Fussball Nationalmannschaft FIFA UEFA AFCON WM Qualifikation', 'Nachrichten', 12);
   }
 
   $sections = [
     'nachrichten' => $news,
-    'videos' => fetch_google_news_section('Fußball Video Highlights Nationalmannschaft FIFA UEFA', 'Videos', 6),
+    'videos' => fetch_google_news_section('Fussball Video Highlights Nationalmannschaft FIFA UEFA', 'Videos', 6),
     'bilder' => array_values(array_filter(array_slice($apiItems, 0, 18), fn($item) => !empty($item['image']))),
     'links' => official_links()
   ];

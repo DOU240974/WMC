@@ -5,6 +5,7 @@ session_start();
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/points.php';
 
 function out(array $payload, int $code = 200): void {
   http_response_code($code);
@@ -81,8 +82,7 @@ function wm_all_matches_finished(PDO $pdo): bool {
     WHERE competition = 'WM 2026'
       AND aktiv = 1
       AND (
-        status <> 'finished'
-        OR score_home IS NULL
+        score_home IS NULL
         OR score_away IS NULL
       )
   ");
@@ -159,6 +159,7 @@ function refresh_wm_favorite_points(PDO $pdo): array {
 try {
   ensure_favorite_table($pdo);
   ensure_wm_result_table($pdo);
+  refresh_tip_points($pdo);
   $wmFavoriteResult = refresh_wm_favorite_points($pdo);
 
   $sql = "
@@ -173,15 +174,15 @@ try {
       u.username AS display_name,
 
       COALESCE(COUNT(DISTINCT CASE WHEN s.id IS NOT NULL THEN t.spiel_id END), 0) AS tips,
-      COALESCE(COUNT(DISTINCT CASE WHEN s.status = 'finished' THEN t.spiel_id END), 0) AS finished_tips,
+      COALESCE(COUNT(DISTINCT CASE WHEN s.score_home IS NOT NULL AND s.score_away IS NOT NULL THEN t.spiel_id END), 0) AS finished_tips,
       COALESCE(COUNT(DISTINCT CASE
-        WHEN s.status = 'finished'
+        WHEN s.score_home IS NOT NULL AND s.score_away IS NOT NULL
          AND t.tipp_home = s.score_home
          AND t.tipp_away = s.score_away
         THEN t.spiel_id
       END), 0) AS exact_tips,
       COALESCE(COUNT(DISTINCT CASE
-        WHEN s.status = 'finished'
+        WHEN s.score_home IS NOT NULL AND s.score_away IS NOT NULL
          AND (
           (t.tipp_home = s.score_home AND t.tipp_away = s.score_away) OR
           (t.tipp_home > t.tipp_away AND s.score_home > s.score_away) OR
@@ -192,25 +193,7 @@ try {
       END), 0) AS hits,
 
       (
-        COALESCE(SUM(
-        CASE
-          WHEN s.id IS NULL THEN 0
-
-          WHEN s.status = 'finished'
-           AND t.tipp_home = s.score_home
-           AND t.tipp_away = s.score_away
-          THEN 3
-
-          WHEN s.status = 'finished' AND (
-            (t.tipp_home > t.tipp_away AND s.score_home > s.score_away) OR
-            (t.tipp_home < t.tipp_away AND s.score_home < s.score_away) OR
-            (t.tipp_home = t.tipp_away AND s.score_home = s.score_away)
-          )
-          THEN 1
-
-          ELSE 0
-        END
-        ), 0)
+        COALESCE(SUM(CASE WHEN s.id IS NOT NULL THEN t.points ELSE 0 END), 0)
         + COALESCE(MAX(f.points_champion + f.points_top_scorer + f.points_total_goals), 0)
       ) AS points
 

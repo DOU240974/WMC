@@ -2,166 +2,155 @@
 <html lang="de">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Glücksball</title>
+    <meta charset="UTF-8">
+    <title>Glücksball</title>
 
-  <!-- Tab-Icon -->
-  <link rel="icon" href="image/Logo.png" type="image/png">
+    <!-- Tab-Icon -->
+    <link rel="icon" href="image/Logo.png" type="image/png">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css?v=22">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css?v=55">
 
-  <!-- Responsive -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 
-  <!-- =========================================================
+    <!-- =========================================================
        HEADER: Titel + Slogan + Navigation + Auth + Theme
        ========================================================= -->
-  <header class="header">
-    <h1>GlücksBall</h1>
-    <p><strong>Wir tippen nicht nur auf Ergebnisse, sondern auf Ruhm, Ehre und Schadenfreude!</strong></p>
+    <header class="header">
+        <h1>GlücksBall</h1>
+        <p><strong>Wir tippen nicht nur auf Ergebnisse, sondern auf Ruhm, Ehre und Schadenfreude!</strong></p>
 
-    <nav class="nav">
-      <a href="index.html" class="active">Start</a>
-      <a href="fussballmeisterschaften.html">Meisterschaften</a>
-      <a href="tipps.html">Ehrentipps</a>
-      <a href="spasstipp.html">Spaßtipps</a>
-      <a href="ranking.html">Ranking</a>
-      <a href="fussball-news.html">News</a>
-      <a href="forum.html">Forum</a>
-      <a href="regeln.html">Regeln</a>
+        <nav class="nav">
+            <a href="index.html" class="active">Start</a>
+            <a href="tipps.html">Ehrentipps</a>
+            <a href="ranking.html">Ranking</a>
 
 
-      <div class="auth-area" id="authArea">
 
-        <!-- Status: LED + Name -->
-        <div class="auth-status" id="authStatus">
-          <span class="led" id="loginLed" aria-label="Login Status"></span>
-          <span class="auth-name" id="navUsername">Gast</span>
-        </div>
+            <div class="auth-area" id="authArea">
 
-        <!-- Gast-Ansicht -->
-        <div id="authGuest">
-          <!-- Button wird in app.js auf "Logout" geändert, wenn eingeloggt -->
-          <button id="authToggle" class="btn btn-ghost" type="button">Login</button>
+                <!-- Status: LED + Name -->
+                <div class="auth-status" id="authStatus">
+                    <span class="led" id="loginLed" aria-label="Login Status"></span>
+                    <span class="auth-name" id="navUsername"></span>
+                </div>
 
-          <!-- Dropdown Login Box -->
-          <div class="auth-box" id="authBox">
-            <form id="loginForm">
-              <h3>Login</h3>
-              <input type="text" id="loginName" placeholder="Benutzername" required>
-              <input type="password" id="loginPass" placeholder="Passwort" required>
-              <button class="btn" type="submit">Login</button>
-            </form>
-            <button class="auth-link" id="forgotToggle" type="button">Passwort vergessen?</button>
-            <form id="forgotForm" class="forgot-form" style="display:none;">
-              <h3>Reset-Link senden</h3>
-              <input type="text" id="forgotName" placeholder="Benutzername" required>
-              <input type="email" id="forgotEmail" placeholder="E-Mail" required>
-              <button class="btn" type="submit">Link per E-Mail senden</button>
-            </form>
-          </div>
-        </div>
+                <!-- Login-Ansicht -->
+                <div id="authGuest">
+                    <!-- Button wird in app.js auf "Logout" geändert, wenn eingeloggt -->
+                    <button id="authToggle" class="btn btn-ghost" type="button">Login</button>
 
-        <!-- User-Ansicht (optional/legacy, aktuell nicht genutzt) -->
-        <div id="authUser" style="display:none;">
-          <button id="logoutBtn" class="btn btn-ghost" type="button">Logout</button>
-        </div>
-      </div>
+                    <!-- Dropdown Login Box -->
+                    <div class="auth-box" id="authBox">
+                        <form id="loginForm">
+                            <h3>Login</h3>
+                            <input type="text" id="loginName" placeholder="Benutzername oder E-Mail" required>
+                            <input type="password" id="loginPass" placeholder="Passwort" required>
+                            <button class="btn" type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+</div>
 
-      <!-- Theme Toggle (Text wird in app.js dynamisch gesetzt) -->
-      <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
-    </nav>
-  </header>
+            <!-- Theme Toggle (Text wird in app.js dynamisch gesetzt) -->
+            <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
+        </nav>
+    </header>
 
-  <!-- =========================================================
+    <!-- =========================================================
        MAIN: 3 Spalten Layout
        links: News
        mitte: Willkommen + Registrierung
        rechts: kommende Spiele
        ========================================================= -->
-  <main class="layout threecol">
+    <main class="layout threecol">
 
-    <!-- =======================
+        <!-- =======================
          LINKS: NEWS
          ======================= -->
-    <section class="card">
-      <h2>Fußball-News</h2>
-      <p style="color:var(--muted);">Nationalteams, Turniere und Qualifikation.</p>
+        <section class="card">
+            <h2>Fußball-News</h2>
+            <p style="color:var(--muted);">Nationalteams, Turniere und Qualifikation.</p>
 
-      <!-- Wird von app.js über api/news.php befüllt -->
-      <div id="nationalNews">
-        <p style="color:var(--muted);">Lade Nachrichten…</p>
-      </div>
-    </section>
+            <!-- Wird von app.js über api/fussball_news.php befüllt -->
+            <div id="nationalNews">
+                <p style="color:var(--muted);">Lade Nachrichten...</p>
+            </div>
+        </section>
 
-    <!-- =======================
+        <!-- =======================
          MITTE: WELCOME + REGISTER
          ======================= -->
-    <section class="card">
-      <h2>Willkommen bei GlücksBall!</h2>
-      <p>GlücksBall ist ein reines Spaßprojekt für Sportsfreunde und deren Sportsfreunde.</p>
-      <p>Es geht nicht um echtes Geld oder ernste Einsätze, sondern um Freude am Spiel,</p>
-      <p>den Austausch mit Freunden und den Spaß am gemeinsamen Tippen.</p>
-      <p>Alles basiert auf Vertrauen, Fairplay und einer großen Portion guter Laune.</p>
+        <section class="card">
+            <h2>Willkommen bei GlücksBall!</h2>
+            <p>GlücksBall ist ein reines Spaßprojekt für Sportsfreunde und deren Sportsfreunde.</p>
+            <p>Es geht nicht um echtes Geld oder ernste Einsätze, sondern um Freude am Spiel,</p>
+            <p>den Austausch mit Freunden und den Spaß am gemeinsamen Tippen.</p>
+            <p>Alles basiert auf Vertrauen, Fairplay und einer großen Portion guter Laune.</p>
 
-      <hr class="line">
+            <hr class="line">
 
-      <h2>Registrieren</h2>
-      <p style="color:var(--muted);">Erstelle ein Konto. Nach deiner Registrierung muss es noch freigegeben werden.</p>
+            <h2>Registrieren</h2>
+            <p style="color:var(--muted);">Erstelle ein Konto und lege direkt los.</p>
 
-      <!-- Register Form wird in app.js via api/register.php verarbeitet -->
-      <form id="registerForm" class="form">
-        <input type="text" id="regName" placeholder="Benutzername" required>
-        <input type="email" id="regEmail" placeholder="E-Mail" required>
-        <input type="password" id="regPass" placeholder="Passwort" required>
-        <button class="btn" type="submit">Registrieren</button>
-      </form>
+            <!-- Register Form wird in app.js via api/register.php verarbeitet -->
+            <form id="registerForm" class="form">
+                <input type="text" id="regWebsite" name="website" autocomplete="off" tabindex="-1" aria-hidden="true"
+                    style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
+                <input type="text" id="regName" placeholder="Anzeigename" required>
+                <input type="email" id="regEmail" placeholder="Benutzername oder E-Mail" required>
+                <input type="password" id="regPass" placeholder="Passwort" required>
+                <button class="btn" type="submit">Registrieren</button>
+            </form>
 
-      <hr class="line">
+            <hr class="line">
 
-      <h3><strong>Vorteile</strong></h3>
-      <ul>
-        <li>Eigene Tipps abgeben und verwalten</li>
-        <li>Rangliste einsehen und mit Freunden konkurrieren</li>
-        <li>Exklusive Updates und Benachrichtigungen erhalten</li>
-        <li>Teil einer engagierten Community werden</li>
-      </ul>
+            <h3><strong>Vorteile</strong></h3>
+            <ul>
+                <li>Eigene Tipps abgeben und verwalten</li>
+                <li>Rangliste einsehen und mit Freunden konkurrieren</li>
+                <li>Exklusive Updates und Benachrichtigungen erhalten</li>
+                <li>Teil einer engagierten Community werden</li>
+            </ul>
 
-      <h3><strong>Nachteile</strong></h3>
-      <ul>
-        <li>Ohne Konto kannst du keine Tipps speichern und tauchst nicht im Ranking auf.</li>
-      </ul>
-    </section>
+            <h3><strong>Nachteile</strong></h3>
+            <ul>
+                <li>Ohne Konto kannst du keine Tipps speichern und tauchst nicht im Ranking auf.</li>
+            </ul>
+        </section>
 
-    <!-- =======================
+        <!-- =======================
          RECHTS: KOMMENDE SPIELE
          ======================= -->
-    <section class="card upcoming-card">
-      <h2>Kommende Nationalspiele</h2>
-      <p style="color:var(--muted);">Nur Spiele aus Ehrentipps und Spaßtipps.</p>
+        <section class="card upcoming-card">
+            <h2>Kommende Nationalspiele</h2>
+            <p style="color:var(--muted);">Nur Spiele aus Ehrentipps und Spaßtipps.</p>
 
-      <!-- Wird von app.js gerendert (renderNextMatches) -->
-      <div id="upcomingMatches"></div>
+            <!-- Wird von app.js gerendert (renderNextMatches) -->
+            <div id="upcomingMatches"></div>
 
-    </section>
+        </section>
 
-  </main>
+    </main>
 
-  <!-- =========================================================
+    <!-- =========================================================
        FOOTER
        ========================================================= -->
-  <footer class="footer">
-    <p>© 2026 GlücksBall – Fußball-Tippspiel</p>
-  </footer>
+    <footer class="footer">
+        <p>© 2026 GlücksBall - Fußball-Tippspiel</p>
+    </footer>
 
-  <!-- app.js: Theme + Auth + News + Upcoming Matches -->
-  <script src="js/app.js?v=10"></script>
+    <!-- app.js: Theme + Auth + News + Upcoming Matches -->
+    <script src="js/app.js?v=55"></script>
 
 </body>
 
 </html>
+
+
+
 

@@ -5,23 +5,12 @@ session_start();
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/points.php';
 
 function out(array $payload, int $code = 200): void {
   http_response_code($code);
   echo json_encode($payload, JSON_UNESCAPED_UNICODE);
   exit;
-}
-
-function calc_points(?int $ph, ?int $pa, ?int $rh, ?int $ra, string $status): int {
-  if ($status !== 'finished' || $rh === null || $ra === null || $ph === null || $pa === null) return 0;
-  if ($ph === $rh && $pa === $ra) return 3;
-
-  $predDiff = $ph - $pa;
-  $realDiff = $rh - $ra;
-  if ($predDiff === 0 && $realDiff === 0) return 1;
-  if (($predDiff > 0 && $realDiff > 0) || ($predDiff < 0 && $realDiff < 0)) return 1;
-
-  return 0;
 }
 
 function load_tips(PDO $pdo, int $userId): array {
@@ -37,7 +26,8 @@ function load_tips(PDO $pdo, int $userId): array {
       s.score_away,
       s.status,
       t.tipp_home,
-      t.tipp_away
+      t.tipp_away,
+      t.points
     FROM tipps t
     JOIN spiele s ON s.id = t.spiel_id
     WHERE t.user_id = :uid
@@ -53,7 +43,8 @@ function load_tips(PDO $pdo, int $userId): array {
     $pa = $row['tipp_away'] !== null ? (int)$row['tipp_away'] : null;
     $rh = $row['score_home'] !== null ? (int)$row['score_home'] : null;
     $ra = $row['score_away'] !== null ? (int)$row['score_away'] : null;
-    $status = (string)($row['status'] ?? 'upcoming');
+    $hasResult = $rh !== null && $ra !== null;
+    $status = $hasResult ? 'finished' : (string)($row['status'] ?? 'upcoming');
 
     $items[] = [
       'match_id' => (string)($row['match_id'] ?? $row['id']),
@@ -66,7 +57,7 @@ function load_tips(PDO $pdo, int $userId): array {
       'home_goals' => $rh,
       'away_goals' => $ra,
       'status' => $status,
-      'points' => calc_points($ph, $pa, $rh, $ra, $status),
+      'points' => $hasResult ? (int)($row['points'] ?? calc_tip_points($ph, $pa, $rh, $ra)) : 0,
     ];
   }
 
@@ -82,6 +73,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 try {
+  refresh_tip_points($pdo);
+
   $userId = (int)$_SESSION['user_id'];
 
   $userStmt = $pdo->prepare("SELECT id, username, email FROM users WHERE id = :id LIMIT 1");
@@ -108,7 +101,7 @@ try {
   $points = 0;
 
   foreach ($honorItems as $item) {
-    if ($item['status'] !== 'finished') continue;
+    if ($item['home_goals'] === null || $item['away_goals'] === null) continue;
     $finished++;
     $points += (int)$item['points'];
     if ((int)$item['points'] === 3) $exact++;

@@ -1,5 +1,4 @@
-console.log("ranking.js geladen");
-
+﻿
 const RANKING_TEAM_NAMES_DE = {
   "Algeria": "Algerien",
   "Argentina": "Argentinien",
@@ -278,3 +277,4 @@ async function loadRanking() {
     renderHallOfFame([], false);
   }
 }
+

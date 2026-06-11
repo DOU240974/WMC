@@ -2,110 +2,100 @@
 <html lang="de">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Glücksball Ehrentipps</title>
-  <link rel="icon" href="image/Logo.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css?v=22" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GluecksBall WM-Tipps</title>
+    <link rel="icon" href="image/Logo.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css?v=55">
+    <script src="js/app.js?v=55" defer></script>
+    <script src="js/wm-tipps.js?v=55" defer></script>
 </head>
 
 <body>
-  <header class="header">
-    <h1>GlücksBall</h1>
-    <p><strong>Für Tipps, die mehr zählen als Quote, Glück und gesunder Menschenverstand.</strong></p>
+    <header class="header">
+        <h1>GluecksBall</h1>
+        <p><strong>Tippe die WM 2026 und sammle Punkte.</strong></p>
 
-    <nav class="nav">
-      <a href="index.html">Start</a>
-      <a href="fussballmeisterschaften.html">Meisterschaften</a>
-      <a href="tipps.html" class="active">Ehrentipps</a>
-      <a href="spasstipp.html">Spaßtipps</a>
-      <a href="ranking.html">Ranking</a>
-      <a href="fussball-news.html">News</a>
-      <a href="forum.html">Forum</a>
-      <a href="regeln.html">Regeln</a>
+        <nav class="nav">
+            <a href="index.html">Start</a>
+            <a href="tipps.html" class="active">Ehrentipps</a>
+            <a href="ranking.html">Ranking</a>
 
-      
+            <div class="auth-area" id="authArea">
+                <div class="auth-status" id="authStatus">
+                    <span class="led" id="loginLed" aria-label="Login Status"></span>
+                    <span class="auth-name" id="navUsername"></span>
+                </div>
 
-      <div class="auth-area" id="authArea">
-        <div class="auth-status" id="authStatus">
-          <span class="led" id="loginLed" aria-label="Login Status"></span>
-          <span class="auth-name" id="navUsername">Gast</span>
-        </div>
+                <div id="authGuest">
+                    <button id="authToggle" class="btn btn-ghost" type="button">Login</button>
+                    <div class="auth-box" id="authBox">
+                        <form id="loginForm">
+                            <h3>Login</h3>
+                            <input type="text" id="loginName" placeholder="Benutzername" required>
+                            <input type="password" id="loginPass" placeholder="Passwort" required>
+                            <button class="btn" type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-        <div id="authGuest">
-          <button id="authToggle" class="btn btn-ghost" type="button">Login</button>
-          <div class="auth-box" id="authBox">
-            <form id="loginForm">
-              <h3>Login</h3>
-              <input type="text" id="loginName" placeholder="Benutzername" required>
-              <input type="password" id="loginPass" placeholder="Passwort" required>
-              <button class="btn" type="submit">Login</button>
-            </form>
-          </div>
-        </div>
+            <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
+        </nav>
+    </header>
 
-        <div id="authUser" style="display:none;">
-          <button id="logoutBtn" class="btn btn-ghost" type="button">Logout</button>
-        </div>
-      </div>
+    <main class="page">
+        <h1>WM-Tipps</h1>
+        <p class="muted">Wähle deine Ergebnisse – bis kurz vor Anpfiff kannst du noch ändern.</p>
 
-      <button id="themeToggle" class="btn btn-ghost" type="button">Lightmode</button>
-    </nav>
-  </header>
+        <div id="authNotice" class="notice" style="display:none;"></div>
 
-  <main class="page">
-    <h1>Ehrentipps</h1>
-    <p class="muted">Vorrunde und Finalrunde der WM 2026. Alle Zeiten sind österreichische Zeiten (MESZ).</p>
+        <section class="wm-favorite-card" id="wmFavoriteCard">
+            <div class="wm-favorite-head">
+                <div>
+                    <h2>WM-Favorit</h2>
+                    <p>Weltmeister, Top-Torjaeger und Gesamt-Tore tippen.</p>
+                </div>
+                <span class="lock-badge" id="wmFavoriteStatus">Laedt</span>
+            </div>
 
-    <div id="authNotice" class="notice" style="display:none;"></div>
-    <section class="wm-favorite-card" id="wmFavoriteCard">
-      <div class="wm-favorite-head">
-        <div>
-          <h2>WM-Favorit</h2>
-          <p>Bis zum Anpfiff des ersten WM-Spiels: Sieger, Top-Torjäger und Gesamt-Tore tippen.</p>
-        </div>
-        <span class="lock-badge" id="wmFavoriteStatus">Lädt</span>
-      </div>
+            <div class="wm-favorite-grid">
+                <label>
+                    <span>Weltmeister</span>
+                    <select id="wmChampionTeam"></select>
+                </label>
+                <label>
+                    <span>Top-Torjaeger</span>
+                    <input id="wmTopScorer" type="text" maxlength="120" placeholder="Spielername">
+                </label>
+                <label>
+                    <span>Gesamte Tore</span>
+                    <input id="wmTotalGoals" type="number" min="0" max="400" placeholder="z.B. 172">
+                </label>
+            </div>
 
-      <div class="wm-favorite-grid">
-        <label>
-          <span>Weltmeister</span>
-          <select id="wmChampionTeam"></select>
-        </label>
-        <label>
-          <span>Top-Torjäger</span>
-          <input id="wmTopScorer" type="text" maxlength="120" placeholder="Spielername">
-        </label>
-        <label>
-          <span>Gesamte Tore</span>
-          <input id="wmTotalGoals" type="number" min="0" max="400" placeholder="z.B. 172">
-        </label>
-      </div>
+            <div class="wm-favorite-actions">
+                <div class="small" id="wmFavoriteHint">Je Kategorie gibt es 25 Punkte.</div>
+                <button class="btn" id="wmFavoriteSave" type="button">WM-Favorit speichern</button>
+            </div>
+        </section>
 
-      <div class="wm-favorite-actions">
-        <div class="small" id="wmFavoriteHint">Je Kategorie gibt es 25 Punkte.</div>
-        <button class="btn" id="wmFavoriteSave" type="button">WM-Favorit speichern</button>
-      </div>
-    </section>
-    <div id="wmFilters" class="filters"></div>
-    <section id="wmMatches" class="cards-grid" aria-live="polite"></section>
+        <div id="wmFilters" class="filters"></div>
+        <section id="wmMatches" class="cards-grid" aria-live="polite"></section>
 
-    <section id="wmKnockoutSection" style="display:none;">
-      <h2 class="section-title">Finalrunde</h2>
-      <p class="muted">KO-Spiele sind sichtbar, sobald die Mannschaften feststehen.</p>
-      <section id="wmKnockoutMatches" class="knockout-grid" aria-live="polite"></section>
-    </section>
-  </main>
+        <section id="wmKnockoutSection" style="display:none;">
+            <h2 class="section-title">Finalrunde</h2>
+            <p class="muted">KO-Spiele erscheinen, sobald echte Mannschaften feststehen.</p>
+            <section id="wmKnockoutMatches" class="knockout-grid" aria-live="polite"></section>
+        </section>
+    </main>
 
-  <script src="js/app.js?v=2"></script>
-  <script src="js/wm-tipps.js?v=6"></script>
+    <footer class="footer">
+        <p>© 2026 GluecksBall</p>
+    </footer>
 </body>
 
 </html>
-
-
-
-
 
 
 

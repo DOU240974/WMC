@@ -128,18 +128,18 @@ function flagUrl(teamName) {
   return code ? `https://flagcdn.com/w40/${code}.png` : "image/flag-placeholder.png";
 }
 
-function teamHtml(teamName, flagSide = "left") {
+function teamHtml(teamName, side = "left") {
   const safeName = escapeHtml(teamName || "-");
   const flag = `<img class="flag" src="${escapeHtml(flagUrl(teamName))}" alt="${safeName}" onerror="this.onerror=null;this.src='image/flag-placeholder.png';">`;
-  const name = `<span>${safeName}</span>`;
-  return `<span class="stat-team">${flagSide === "right" ? name + flag : flag + name}</span>`;
+  const name = `<span class="stat-team-name">${safeName}</span>`;
+  return `<span class="stat-team ${side}">${side === "right" ? name + flag : flag + name}</span>`;
 }
 
 function matchHtml(home, away) {
   return `
     <span class="stat-match">
       ${teamHtml(home, "left")}
-      <span class="muted">vs</span>
+      <span class="stat-vs">vs</span>
       ${teamHtml(away, "right")}
     </span>
   `;
@@ -183,14 +183,15 @@ function renderRows(items, showPoints, emptyText) {
   }
 
   return items.map(item => {
-    const result = item.status === "finished" && item.home_goals !== null && item.away_goals !== null
+    const hasResult = item.home_goals !== null && item.away_goals !== null;
+    const result = hasResult
       ? `${item.home_goals} : ${item.away_goals}`
       : "-";
     const tipHome = item.pred_home ?? "-";
     const tipAway = item.pred_away ?? "-";
     const lastCell = showPoints
-      ? (item.status === "finished" ? String(item.points ?? 0) : "-")
-      : (item.status === "finished" ? "Fertig" : "Offen");
+      ? (hasResult ? String(item.points ?? 0) : "-")
+      : (hasResult ? "Fertig" : "Offen");
 
     return `
       <tr>
@@ -269,3 +270,4 @@ document.addEventListener("DOMContentLoaded", () => {
     showLocked("Statistik konnte nicht geladen werden.");
   });
 });
+
