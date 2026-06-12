@@ -432,16 +432,19 @@ async function initWmTipps() {
   let activeGroup = "Alle";
 
   try {
+    const session = await wmApi("me.php");
+    const isLoggedIn = Boolean(session.loggedIn || session.logged_in || session.username);
+    if (!isLoggedIn) {
+      window.location.href = "index.html";
+      return;
+    }
+
     loadWmFavorite();
     document.getElementById("wmFavoriteSave")?.addEventListener("click", saveWmFavorite);
 
     const data = await wmApi("wm_matches_v2.php");
     const matches = data.matches || [];
 
-    if (notice && !data.loggedIn) {
-      notice.style.display = "block";
-      notice.innerHTML = "Du kannst die WM-Gruppenspiele ansehen. Zum Tippen bitte oben einloggen.";
-    }
 
     renderGroupFilters(activeGroup);
     renderMatches(matches, activeGroup);

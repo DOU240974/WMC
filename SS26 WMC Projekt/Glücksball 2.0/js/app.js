@@ -14,41 +14,87 @@ const HOME_TEAM_FLAGS = {
     "Bosnia and Herzegovina": "ba",
     Brazil: "br",
     Canada: "ca",
+    "Cape Verde": "cv",
     Colombia: "co",
     Croatia: "hr",
+    Curacao: "cw",
     "Czech Republic": "cz",
+    "DR Congo": "cd",
     Ecuador: "ec",
+    Egypt: "eg",
     England: "gb-eng",
     France: "fr",
     Germany: "de",
+    Ghana: "gh",
+    Haiti: "ht",
+    Iran: "ir",
+    Iraq: "iq",
+    "Ivory Coast": "ci",
     Japan: "jp",
+    Jordan: "jo",
     Mexico: "mx",
     Morocco: "ma",
     Netherlands: "nl",
+    "New Zealand": "nz",
+    Norway: "no",
+    Panama: "pa",
     Paraguay: "py",
     Portugal: "pt",
     Qatar: "qa",
+    "Saudi Arabia": "sa",
+    Scotland: "gb-sct",
     Senegal: "sn",
+    "South Africa": "za",
     "Korea Republic": "kr",
     "South Korea": "kr",
     "S\u00fcdkorea": "kr",
     Spain: "es",
+    Sweden: "se",
     Switzerland: "ch",
     Tunisia: "tn",
     Turkey: "tr",
     "United States": "us",
     Uruguay: "uy",
+    Uzbekistan: "uz",
 };
 const HOME_TEAM_NAMES_DE = {
+    Algeria: "Algerien",
+    Argentina: "Argentinien",
+    Australia: "Australien",
+    Austria: "\u00d6sterreich",
+    Belgium: "Belgien",
     "Bosnia and Herzegovina": "Bosnien und Herzegowina",
+    Brazil: "Brasilien",
     Canada: "Kanada",
+    "Cape Verde": "Kap Verde",
+    Colombia: "Kolumbien",
+    Croatia: "Kroatien",
+    Curacao: "Cura\u00e7ao",
     "Czech Republic": "Tschechien",
-    "Korea Republic": "S\u00fcdkorea",
-    Paraguay: "Paraguay",
+    "DR Congo": "DR Kongo",
+    Egypt: "\u00c4gypten",
+    England: "England",
+    France: "Frankreich",
+    Germany: "Deutschland",
+    "Ivory Coast": "Elfenbeink\u00fcste",
+    Mexico: "Mexiko",
+    Morocco: "Marokko",
+    Netherlands: "Niederlande",
+    "New Zealand": "Neuseeland",
+    Norway: "Norwegen",
     Qatar: "Katar",
+    "Saudi Arabia": "Saudi-Arabien",
+    Scotland: "Schottland",
+    "South Africa": "S\u00fcdafrika",
+    "Korea Republic": "S\u00fcdkorea",
     "South Korea": "S\u00fcdkorea",
+    Spain: "Spanien",
+    Sweden: "Schweden",
     Switzerland: "Schweiz",
-    "United States": "USA"
+    Tunisia: "Tunesien",
+    Turkey: "T\u00fcrkei",
+    "United States": "USA",
+    Uzbekistan: "Usbekistan"
 };
 /* 2. DOM Node References */
 const dom = {};
@@ -189,7 +235,7 @@ function renderUpcomingMatches(matches) {
         .filter(match => !Number.isNaN(match.dateTime.getTime()))
         .filter(match => match.dateTime >= new Date())
         .sort((a, b) => a.dateTime - b.dateTime)
-        .slice(0, 5);
+        .slice(0, 4);
 
     if (upcoming.length === 0) {
         dom.upcomingMatches.replaceChildren(createNotice("Keine kommenden Spiele gefunden."));
@@ -235,6 +281,17 @@ function setupAuth() {
     dom.authArea?.addEventListener("click", event => event.stopPropagation());
     document.addEventListener("click", () => {
         if (dom.authBox) dom.authBox.style.display = "none";
+    });
+}
+
+
+function setupProtectedNavigation() {
+    document.querySelectorAll('a[href="tipps.html"], a[href="ranking.html"]').forEach(link => {
+        link.addEventListener("click", event => {
+            if (appState.loggedIn) return;
+            event.preventDefault();
+            alert("Bitte zuerst einloggen.");
+        });
     });
 }
 
@@ -370,6 +427,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await loadSession();
     renderAuth();
+    setupProtectedNavigation();
     loadUpcomingMatches();
     loadNews();
 });

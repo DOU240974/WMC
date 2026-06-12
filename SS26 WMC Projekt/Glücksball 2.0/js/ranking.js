@@ -1,4 +1,4 @@
-﻿
+
 const RANKING_TEAM_NAMES_DE = {
   "Algeria": "Algerien",
   "Argentina": "Argentinien",
@@ -101,7 +101,21 @@ const RANKING_TEAM_FLAGS = {
   "Uzbekistan": "uz"
 };
 
-document.addEventListener("DOMContentLoaded", loadRanking);
+document.addEventListener("DOMContentLoaded", async () => {
+  if (await requireLogin()) loadRanking();
+});
+
+async function requireLogin() {
+  try {
+    const res = await fetch("api/me.php", { credentials: "include", cache: "no-store" });
+    const me = await res.json();
+    if (me.loggedIn || me.logged_in || me.username) return true;
+  } catch {
+    // Weiterleitung unten.
+  }
+  window.location.href = "index.html";
+  return false;
+}
 
 function escapeHtml(value) {
   return String(value ?? "")

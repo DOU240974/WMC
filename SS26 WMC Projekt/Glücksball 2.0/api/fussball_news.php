@@ -38,7 +38,7 @@ function http_get_news(string $url) {
       CURLOPT_FOLLOWLOCATION => true,
       CURLOPT_TIMEOUT => 12,
       CURLOPT_CONNECTTIMEOUT => 5,
-      CURLOPT_USERAGENT => 'GluecksBall/2.0',
+      CURLOPT_USERAGENT => 'GlücksBall/2.0',
       CURLOPT_SSL_VERIFYPEER => true
     ]);
     $out = curl_exec($ch);
@@ -48,7 +48,7 @@ function http_get_news(string $url) {
   }
 
   $ctx = stream_context_create([
-    'http' => ['method' => 'GET', 'header' => "User-Agent: GluecksBall/2.0\r\n"],
+    'http' => ['method' => 'GET', 'header' => "User-Agent: GlücksBall/2.0\r\n"],
     'ssl' => ['verify_peer' => true, 'verify_peer_name' => true]
   ]);
   return @file_get_contents($url, false, $ctx) ?: false;
